@@ -1,0 +1,7 @@
+.vscode
+*.py[co]
+*.cache
+*.egg*
+*.egg-info/
+.tox/
+.tox_*
