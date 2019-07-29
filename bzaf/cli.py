@@ -39,6 +39,8 @@ def parse_args():
                         action='store_true')
     parser.add_argument('--interactive-login', action='store_true',
                         help='use interactive login if no cached credentials')
+    parser.add_argument('--access-api-key',
+                        help='use api token key instead of interactive login')
     parser.add_argument('--version', action='version',
                         version=bzaf.version.__version__)
     parser.add_argument('--bugzilla', required=True,
@@ -112,7 +114,11 @@ def main():
 
     # Try to connect to bugzilla XMLRPC API endpoint
     try:
-        bugzilla_instance = bugzilla.Bugzilla(bzurl)
+
+        if args.access_api_key:
+           bugzilla_instance = bugzilla.Bugzilla(bzurl,api_key=args.access_api_key)
+        else:
+            bugzilla_instance = bugzilla.Bugzilla(bzurl)
         logger.debug('Bugzilla API URL: {}'.format(bzurl))
     except requests.exceptions.ConnectionError as e:
         logger.debug("{}".format(e))
