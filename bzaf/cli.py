@@ -43,8 +43,11 @@ def parse_args():
                         version=bzaf.version.__version__)
     parser.add_argument('--bugzilla', required=True,
                         help='Bugzilla API entry point to use')
-    parser.add_argument('--bzid', action='append', required=True,
+    bz_arg_group = parser.add_mutually_exclusive_group(required=True)
+    bz_arg_group.add_argument('--bzid', action='append',
                         help='Bugzilla bug # to be verified')
+    bz_arg_group.add_argument('--bz-query', help='Bugzilla search URL, provides'
+                                           'list of bugs to be verified')
     parser.add_argument('--required-status', required=True,
                         help='required status for bug to be verified')
     parser.add_argument('--verified-status', required=True,
@@ -97,7 +100,6 @@ def main():
     args = parse_args()
     configure_logger(args.debug)
     bzurl = args.bugzilla
-    bzids = args.bzid
     fatal = args.fatal
     if fatal:
         logger.debug('Any error is FATAL, will quit')
@@ -150,12 +152,26 @@ def main():
                 logger.warning('No credentials to auth, proceeding with '
                                'limited functionality')
 
+    #init bz,bzs or bzlist from query
+    if args.bzid:
+        bzids = args.bzid or args.bz_query
+    elif args.bz_query:
+        bzids = args.bz_query
+        query = bugzilla_instance.url_to_query(bzids)
+        query["include_fields"] = ["id","status","summary", "assigned_to"]
+        #set bzids as an object list containing bug objects
+        bzids = bugzilla_instance.query(query)
+
+
     if bzids:
         # Iterate over Bugzilla bugs #
         for bz in bzids:
             # Attempt to find bug #
             try:
-                bug = bugzilla_instance.getbug(bz)
+                if args.bzid:
+                    bug = bugzilla_instance.getbug(bz)
+                elif args.bz_query:
+                    bug = bz
                 logger.debug('BZ #{b} set to {s}'.format(b=bz, s=bug.status))
                 # Check if current bug status equals to status user requested
                 if bug.status != req_status:
