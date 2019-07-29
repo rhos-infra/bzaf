@@ -8,6 +8,10 @@
 
 This tool aims to provide an auto verification framework to Bugzilla bugs.
 
+## Contribution
+
+Please use https://review.gerrithub.io to submit changes.
+
 ## Usage
 
 After installation, `bzaf` binary is present in python's environment.
