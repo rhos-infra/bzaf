@@ -8,6 +8,10 @@
 
 This tool aims to provide an auto verification framework to Bugzilla bugs.
 
+## Contribution
+
+Please use https://review.gerrithub.io to submit changes.
+
 ## Usage
 
 After installation, `bzaf` binary is present in python's environment.
@@ -18,7 +22,7 @@ Use `--help` for help.
 
 Install via pip remotely:
 ```
-pip install git+https://github.com/rhos-infra/bzaf.git
+gipip install git+https://github.com/rhos-infra/bzaf.git
 ```
 
 In order to install from source, clone this repo and install it via pip:
