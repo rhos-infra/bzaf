@@ -206,7 +206,8 @@ def main():
             if validator.execute_spec(bzaf_spec['bzaf']):
                 update_comment = []
                 auto_verified_bugs.append(valid_bug)
-                update_comment.append('All steps completed as expected\n')
+                update_comment.append('All verification steps completed '
+                                      'as expected\n')
                 update_comment.append('Verifying bug as {s} {r}'
                                       .format(s=verified_status,
                                               r=resolution))

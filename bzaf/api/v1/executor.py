@@ -18,8 +18,8 @@ from bzaf.api.v1.backends import shell
 
 
 def execute(spec):
-    # Iterate over steps in spec
-    for step in spec['steps']:
+    # Iterate over verification_steps in spec
+    for step in spec['verification_steps']:
         # step_name = step['name'].text
         step_backend = step['backend'].text
         step_cmd = step['cmd'].text

@@ -25,11 +25,11 @@ SCHEMA = Map({
 })
 
 
-def validate_steps(spec):
+def validate_verification_steps(spec):
     # Validate each step in spec
-    for step in spec:
+    for verification_step in spec:
         try:
-            load(step.as_yaml(), SCHEMA)
+            load(verification_step.as_yaml(), SCHEMA)
         # Schema validation failed
         except Exception as e:
             print(e)
