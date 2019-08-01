@@ -22,6 +22,30 @@
       "revId": "9f4ee64c355cb6e6adecbe31e5b274f5ee880e93",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aafcb38_4003319e",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-01T22:03:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "df80fd1d_6e76e50e",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 78
+      },
+      "revId": "9f4ee64c355cb6e6adecbe31e5b274f5ee880e93",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
