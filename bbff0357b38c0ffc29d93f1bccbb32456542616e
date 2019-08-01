@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6e3f86df_22e90ae0",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-01T21:55:37Z",
+      "side": 1,
+      "message": "yes , actual query can\u0027t contain all fields there are too many columns(too complicated to handle), so the bare minimum is ok here",
+      "parentUuid": "a3965132_32188630",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 74
+      },
+      "revId": "bbff0357b38c0ffc29d93f1bccbb32456542616e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53a2faff_f84f1957",
         "filename": "bzaf/cli.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-08-01T11:29:10Z",
       "side": 1,
       "message": "I think we can leverage list comprehension to avoid a scenario where we are fetching a bug in this loop.\n\nWill try and report back.",
+      "range": {
+        "startLine": 156,
+        "startChar": 3,
+        "endLine": 174,
+        "endChar": 28
+      },
+      "revId": "bbff0357b38c0ffc29d93f1bccbb32456542616e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "252f977d_66c7c96a",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-01T21:55:37Z",
+      "side": 1,
+      "message": "why ? , if we supply a bz_id we need \"bug\" to be a bz object so that bug.status is accessible ..no  ?",
+      "parentUuid": "53a2faff_f84f1957",
       "range": {
         "startLine": 156,
         "startChar": 3,
