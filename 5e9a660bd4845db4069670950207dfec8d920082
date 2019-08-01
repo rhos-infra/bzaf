@@ -22,6 +22,30 @@
       "revId": "5e9a660bd4845db4069670950207dfec8d920082",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9cd768da_dced72fd",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-01T21:57:16Z",
+      "side": 1,
+      "message": "I think it\u0027s ok to leave it in info level",
+      "parentUuid": "204a98f5_a4374631",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "5e9a660bd4845db4069670950207dfec8d920082",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
