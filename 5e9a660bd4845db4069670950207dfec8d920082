@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "204a98f5_a4374631",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-01T11:17:56Z",
+      "side": 1,
+      "message": "Do we wish to print the comment?\nPerhaps it should be part of debug flag.\n\nIf you think otherwise, go ahead and merge this.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "5e9a660bd4845db4069670950207dfec8d920082",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
