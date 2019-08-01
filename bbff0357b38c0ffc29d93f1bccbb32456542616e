@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a3965132_32188630",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-01T11:29:10Z",
+      "side": 1,
+      "message": "Is there any reason to filter specific fields instead of all?",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 74
+      },
+      "revId": "bbff0357b38c0ffc29d93f1bccbb32456542616e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53a2faff_f84f1957",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-01T11:29:10Z",
+      "side": 1,
+      "message": "I think we can leverage list comprehension to avoid a scenario where we are fetching a bug in this loop.\n\nWill try and report back.",
+      "range": {
+        "startLine": 156,
+        "startChar": 3,
+        "endLine": 174,
+        "endChar": 28
+      },
+      "revId": "bbff0357b38c0ffc29d93f1bccbb32456542616e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
