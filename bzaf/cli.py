@@ -211,15 +211,24 @@ def main():
                         bzaf:
                          version: 1 <- type int
                          steps:
-                          backend: 'shell' <- type str
-                          cmd: 'echo some_command' <-type str
-                          rc: 0 <- type int
+                          step1:
+                           name: 'step_name' <- type str
+                           backend: 'shell' <- type str
+                           cmd: 'echo some_command' <-type str
+                           rc: 0 <- type int
+                          step2:
+                           name: 'step_name' <- type str
+                           backend: 'shell' <- type str
+                           cmd: 'echo some_command2' <-type str
+                           rc: 0 <- type int
                           """
                         logger.info(comment)
                         bzaf_spec = yaml.load(comment['text'])
                         # check spec YAML according to types
-                        if not isinstance(bzaf_spec['bzaf']['steps']['rc'],int) and isinstance(bzaf_spec['bzaf']['steps']['cmd'],str) and isinstance(bzaf_spec['bzaf']['steps']['backend'],str) and isinstance(bzaf_spec['bzaf']['version'],int):
-                            raise ValueError('error please check yaml types,example : {} '.format(example_spec))
+                        for step in bzaf_spec['bzaf']['steps']:
+                            if not isinstance(bzaf_spec['bzaf']['steps'][step]['rc'],int) and isinstance(bzaf_spec['bzaf']['steps'][step]['cmd'],str) and isinstance(bzaf_spec['bzaf']['steps'][step]['backend'],str) and isinstance(bzaf_spec['bzaf']['version'],int) and isinstance(bzaf_spec['bzaf']['steps'][step]['name'],str):
+                                raise ValueError('error please check yaml types,example : {} '.format(example_spec))
+
 
                         logger.info('BZ #{} Valid bzaf spec '
                                     'found'.format(valid_bug.id))
