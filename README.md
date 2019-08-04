@@ -8,6 +8,10 @@
 
 This tool aims to provide an auto verification framework to Bugzilla bugs.
 
+## Documentation
+
+Visit bzaf.readthedocs.io.
+
 ## Contribution
 
 Please use https://review.gerrithub.io to submit changes.
