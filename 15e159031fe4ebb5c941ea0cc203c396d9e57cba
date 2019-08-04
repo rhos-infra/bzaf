@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "46174022_99c88921",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-04T07:24:48Z",
+      "side": 1,
+      "message": "I agree ,   \nthis is better :\n step1:\n   name: \u0027some step name\u0027\n   backend: \u0027shell\u0027\n   cmd: \u0027echo bla\u0027\n   rc: 0\n\n , then we can use the step name and command output \nin the bz comment ?  or just have it available in debug ? \n\nIf this is not critical right now , I can just add the \u0027name\u0027 section in the example , will that be enough for now ?",
+      "parentUuid": "c774d314_6345c5e1",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "15e159031fe4ebb5c941ea0cc203c396d9e57cba",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1da65780_052783c1",
         "filename": "bzaf/cli.py",
         "patchSetId": 2
