@@ -52,8 +52,8 @@ def parse_args():
                         help='Bugzilla bug # to be verified')
     bz_arg_group.add_argument('--bz-query', help='Bugzilla search URL, provides'
                                            'list of bugs to be verified')
-    parser.add_argument('--required-status', required=True,
-                        help='required status for bug to be verified')
+    parser.add_argument('--current-status', required=True,
+                        help='current status for bug to be verified')
     parser.add_argument('--verified-status', required=True,
                         help='set status for bug which verified')
     parser.add_argument('--verified-resolution', required=True,
@@ -109,10 +109,10 @@ def main():
         logger.debug('Any error is FATAL, will quit')
     else:
         logger.debug('Will continue if error is not FATAL')
-    req_status = args.required_status
+    current_status = args.current_status
     verified_status = args.verified_status
     resolution = args.verified_resolution
-    logger.debug('Set required status to: {}'.format(req_status))
+    logger.debug('Set required status to: {}'.format(current_status))
     logger.debug('Set verified status to: {}'.format(verified_status))
     logger.debug('Set verified resolution to: {}'.format(resolution))
 
@@ -182,14 +182,14 @@ def main():
                     bug = bz
                 logger.debug('BZ #{b} set to {s}'.format(b=bz, s=bug.status))
                 # Check if current bug status equals to status user requested
-                if bug.status != req_status:
+                if bug.status != current_status:
                     if fatal:
                         logger.error('BZ #{i} status does not match {s}, '
-                                     'quitting'.format(i=bz, s=req_status))
+                                     'quitting'.format(i=bz, s=current_status))
                         sys.exit(1)
                     else:
                         logger.warning('BZ #{i} status does not '
-                                       'match {s}'.format(i=bz, s=req_status))
+                                       'match {s}'.format(i=bz, s=current_status))
                 else:
                     logger.info('BZ #{} is valid'.format(bz))
                     valid_bugs.append(bug)
