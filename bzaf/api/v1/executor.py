@@ -21,9 +21,9 @@ def execute(spec):
     # Iterate over steps in spec
     for step in spec['steps']:
         # step_name = step['name'].text
-        step_backend = step['backend'].text
-        step_cmd = step['cmd'].text
-        step_rc = int(step['rc'].text)
+        step_backend = spec['steps']['backend']
+        step_cmd = spec['steps']['cmd']
+        step_rc = spec['steps']['rc']
         # Execute command when using 'shell' backend
         if step_backend == 'shell':
             result = shell.run(step_cmd, step_rc)

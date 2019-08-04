@@ -26,7 +26,8 @@ import colorlog
 import sys
 import xmlrpclib
 import strictyaml
-from strictyaml import load, Map, Any
+# from strictyaml import load, Map, Any
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -207,22 +208,26 @@ def main():
         # Iterate over valid bugs
         for valid_bug in valid_bugs:
             bzaf_found = False
-
             comments = valid_bug.getcomments()
             # Iterate over comments in reverse order (from last to first)
             for comment in comments[::-1]:
                 if 'bzaf' in comment['text']:
                     bzaf_found = True
-                    # YAML Starts with 'bzaf'
-                    schema = Map({
-                        'bzaf': Any()
-                    })
-                    # Attempt to validate spec
                     try:
-                        # Validate YAML according to strictyaml
+                        example_spec = """
+                        bzaf:
+                         version: 1 <- type int
+                         steps:
+                          backend: 'shell' <- type str
+                          cmd: 'echo some_command' <-type str
+                          rc: 0 <- type int
+                          """
                         logger.info(comment)
-                        bzaf_spec = load(comment['text'], schema)
-                        validator.validate_initial_spec(bzaf_spec['bzaf'])
+                        bzaf_spec = yaml.load(comment['text'])
+                        # check spec YAML according to types
+                        if not isinstance(bzaf_spec['bzaf']['steps']['rc'],int) and isinstance(bzaf_spec['bzaf']['steps']['cmd'],str) and isinstance(bzaf_spec['bzaf']['steps']['backend'],str) and isinstance(bzaf_spec['bzaf']['version'],int):
+                            raise ValueError('error please check yaml types,example : {} '.format(example_spec))
+
                         logger.info('BZ #{} Valid bzaf spec '
                                     'found'.format(valid_bug.id))
                         break

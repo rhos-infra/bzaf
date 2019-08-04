@@ -59,12 +59,8 @@ def validate_initial_spec(spec):
 
 
 def execute_spec(spec):
-    version = _get_spec_version(spec['version'])
-    # Copy spec and remove version
-    modified_spec = as_document(spec.data)
-    del modified_spec['version']
-    # Executed validated spec based on version
-    if SUPPORTED_VERSIONS[version].executor.execute(modified_spec):
+
+    if v1.executor.execute(spec):
         return True
     else:
         return False
