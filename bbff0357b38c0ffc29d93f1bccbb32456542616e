@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "372133df_0e103363",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-04T06:53:46Z",
+      "side": 1,
+      "message": "Ack.",
+      "parentUuid": "6e3f86df_22e90ae0",
+      "range": {
+        "startLine": 161,
+        "startChar": 8,
+        "endLine": 161,
+        "endChar": 74
+      },
+      "revId": "bbff0357b38c0ffc29d93f1bccbb32456542616e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "53a2faff_f84f1957",
         "filename": "bzaf/cli.py",
         "patchSetId": 1
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "why ? , if we supply a bz_id we need \"bug\" to be a bz object so that bug.status is accessible ..no  ?",
       "parentUuid": "53a2faff_f84f1957",
+      "range": {
+        "startLine": 156,
+        "startChar": 3,
+        "endLine": 174,
+        "endChar": 28
+      },
+      "revId": "bbff0357b38c0ffc29d93f1bccbb32456542616e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "904261a8_45482cec",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-04T06:53:46Z",
+      "side": 1,
+      "message": "I\u0027m dropping the list comprehension idea, it won\u0027t make the code more friendly.\n\nMy ideas was to supply to the loop an object containing all of the BZs instead of having an inconsistent scenario where sometimes we discover the BZs during the loop and sometimes we just iterate over them.\n\nRegardless, this is fine for now in my opinion.",
+      "parentUuid": "252f977d_66c7c96a",
       "range": {
         "startLine": 156,
         "startChar": 3,
