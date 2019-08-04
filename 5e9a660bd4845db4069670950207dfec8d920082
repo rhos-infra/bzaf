@@ -46,6 +46,30 @@
       "revId": "5e9a660bd4845db4069670950207dfec8d920082",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da4b4b86_c4e4b905",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-04T06:57:31Z",
+      "side": 1,
+      "message": "INFO is always being printed to shell in the current implementation.\n\nRegardless, will need to cleanup some of the code in the future so for now no point in blocking this patch.",
+      "parentUuid": "9cd768da_dced72fd",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "5e9a660bd4845db4069670950207dfec8d920082",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
