@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c774d314_6345c5e1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-04T07:10:31Z",
+      "side": 1,
+      "message": "The previous behavior was chronological, meaning that the first step was executed first.\n\nI still think that a \u0027name\u0027 key should be used at the \u0027step1\u0027 level,  personally think it\u0027s more transparent to the user.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 8
+      },
+      "revId": "15e159031fe4ebb5c941ea0cc203c396d9e57cba",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1da65780_052783c1",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-04T07:10:31Z",
+      "side": 1,
+      "message": "This validation should be at the API level ideally, but for now we can proceed with this due to the API planned refactor.",
+      "range": {
+        "startLine": 209,
+        "startChar": 1,
+        "endLine": 228,
+        "endChar": 116
+      },
+      "revId": "15e159031fe4ebb5c941ea0cc203c396d9e57cba",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
