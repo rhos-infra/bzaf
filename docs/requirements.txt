@@ -1,0 +1,6 @@
+# Docs will fail to generate if not using python3
+pbr
+sphinx>=1.5.1
+sphinx-autobuild
+insegel
+Pygments>=2.2.0
