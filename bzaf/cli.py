@@ -25,8 +25,6 @@ import logging
 import colorlog
 import sys
 import xmlrpclib
-import strictyaml
-# from strictyaml import load, Map, Any
 import yaml
 
 logger = logging.getLogger(__name__)
@@ -40,18 +38,21 @@ def parse_args():
                         action='store_true')
     bz_login_group = parser.add_mutually_exclusive_group(required=True)
     bz_login_group.add_argument('--interactive-login', action='store_true',
-                        help='use interactive login if no cached credentials')
+                                help='use interactive login if no cached '
+                                     'credentials')
     bz_login_group.add_argument('--access-api-key',
-                        help='use api token key instead of interactive login')
+                                help='use api token key instead of '
+                                     'interactive login')
     parser.add_argument('--version', action='version',
                         version=bzaf.version.__version__)
     parser.add_argument('--bugzilla', required=True,
                         help='Bugzilla API entry point to use')
     bz_arg_group = parser.add_mutually_exclusive_group(required=True)
     bz_arg_group.add_argument('--bzid', action='append',
-                        help='Bugzilla bug # to be verified')
-    bz_arg_group.add_argument('--bz-query', help='Bugzilla search URL, provides'
-                                           'list of bugs to be verified')
+                              help='Bugzilla bug # to be verified')
+    bz_arg_group.add_argument('--bz-query', help='Bugzilla search URL, '
+                                                 'provides list of bugs to'
+                                                 'be verified')
     parser.add_argument('--current-status', required=True,
                         help='current status for bug to be verified')
     parser.add_argument('--verified-status', required=True,
@@ -118,9 +119,9 @@ def main():
 
     # Try to connect to bugzilla XMLRPC API endpoint
     try:
-
         if args.access_api_key:
-           bugzilla_instance = bugzilla.Bugzilla(bzurl,api_key=args.access_api_key)
+            bugzilla_instance = bugzilla.Bugzilla(bzurl,
+                                                  api_key=args.access_api_key)
         else:
             bugzilla_instance = bugzilla.Bugzilla(bzurl)
         logger.debug('Bugzilla API URL: {}'.format(bzurl))
@@ -160,16 +161,15 @@ def main():
                 logger.warning('No credentials to auth, proceeding with '
                                'limited functionality')
 
-    #init bz,bzs or bzlist from query
+    # init bz,bzs or bzlist from query
     if args.bzid:
         bzids = args.bzid or args.bz_query
     elif args.bz_query:
         bzids = args.bz_query
         query = bugzilla_instance.url_to_query(bzids)
-        query["include_fields"] = ["id","status","summary", "assigned_to"]
-        #set bzids as an object list containing bug objects
+        query["include_fields"] = ["id", "status", "summary", "assigned_to"]
+        # set bzids as an object list containing bug objects
         bzids = bugzilla_instance.query(query)
-
 
     if bzids:
         # Iterate over Bugzilla bugs #
@@ -189,7 +189,8 @@ def main():
                         sys.exit(1)
                     else:
                         logger.warning('BZ #{i} status does not '
-                                       'match {s}'.format(i=bz, s=current_status))
+                                       'match {s}'.format(i=bz,
+                                                          s=current_status))
                 else:
                     logger.info('BZ #{} is valid'.format(bz))
                     valid_bugs.append(bug)
@@ -224,16 +225,29 @@ def main():
                           """
                         logger.info(comment)
                         bzaf_spec = yaml.load(comment['text'])
-                        # check spec YAML according to types
-                        if not isinstance(bzaf_spec['bzaf']['steps']['rc'],int) and isinstance(bzaf_spec['bzaf']['steps']['cmd'],str) and isinstance(bzaf_spec['bzaf']['steps']['backend'],str) and isinstance(bzaf_spec['bzaf']['version'],int):
-                            raise ValueError('error please check yaml types,example : {} '.format(example_spec))
+                        # Temporary check spec YAML according to types
+                        # TODO: Move check to spec validation
+                        tmp_rc = bzaf_spec['bzaf']['steps']['rc']
+                        tmp_cmd = bzaf_spec['bzaf']['steps']['cmd']
+                        tmp_backend = bzaf_spec['bzaf']['steps']['backend']
+                        tmp_version = bzaf_spec['bzaf']['version']
+                        if not (
+                            isinstance(tmp_rc, int) and
+                            isinstance(tmp_cmd, str) and
+                            isinstance(tmp_backend, str) and
+                            isinstance(tmp_version, int)
+                        ):
+                            raise ValueError('error please check yaml types, '
+                                             'ex: {}'.format(example_spec))
 
                         logger.info('BZ #{} Valid bzaf spec '
                                     'found'.format(valid_bug.id))
                         break
-                    except strictyaml.exceptions.YAMLValidationError:
-                        logger.debug('discarding {} no valid bzaf '
-                                     'spec'.format(comment))
+
+                    except Exception as e:
+                        logger.error('exception: {}'.format(e))
+                        sys.exit(1)
+
                 else:
                     logger.debug('discarding {} no valid bzaf '
                                  'spec'.format(comment))
