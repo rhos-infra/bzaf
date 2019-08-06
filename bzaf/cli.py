@@ -24,7 +24,6 @@ import requests
 import logging
 import colorlog
 import sys
-import xmlrpclib
 import yaml
 
 logger = logging.getLogger(__name__)
@@ -194,7 +193,7 @@ def main():
                 else:
                     logger.info('BZ #{} is valid'.format(bz))
                     valid_bugs.append(bug)
-            except xmlrpclib.Fault as e:
+            except Exception as e:
                 if fatal:
                     logger.error('{}, quitting'.format(e))
                     sys.exit(1)
@@ -244,10 +243,9 @@ def main():
                                     'found'.format(valid_bug.id))
                         break
 
+                    # Temporary fix: failed to locate bzaf spec in comment
                     except Exception as e:
-                        logger.error('exception: {}'.format(e))
-                        sys.exit(1)
-
+                        pass
                 else:
                     logger.debug('discarding {} no valid bzaf '
                                  'spec'.format(comment))
@@ -272,7 +270,7 @@ def main():
                     try:
                         bugzilla_instance.update_bugs(valid_bug.id, update)
                         logger.info('Updated bug {}'.format(valid_bug.id))
-                    except xmlrpclib.Fault as e:
+                    except Exception as e:
                         logger.error('Failed to Update bug #{b}\n{e}'
                                      .format(b=valid_bug.id, e=e))
                         sys.exit(1)
