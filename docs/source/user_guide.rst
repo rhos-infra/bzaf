@@ -124,7 +124,7 @@ can be provided
 --bz-query
 ^^^^^^^^^^
 
-**Required**: True, mutually exclusive with ``--bz-query``
+**Required**: True, mutually exclusive with ``--bzid``
 
 **Description**: Bugzilla saved/advanced search query to use to query bugs
 
