@@ -2,7 +2,7 @@
 About bzaf
 =================
 
-``bzaf`` is a python based `Bugzilla <https://www.bugzilla.org/>`_ verification tool.
+``bzaf`` is a python based `Bugzilla <https://www.bugzilla.org/>`_ auto verification tool.
 
 ``bzaf``'s main goal is to provide a robust auto verification workflow while
 focusing on ease-of-use and simplicity.

@@ -44,3 +44,10 @@ Install from remote
 Install from remote repository::
 
   pip install git+https://github.com/rhos-infra/bzaf.git
+
+Uninstall
+^^^^^^^^^
+
+In order to uninstall tool from system::
+
+  pip uninstall bzaf
