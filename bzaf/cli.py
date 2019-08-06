@@ -24,7 +24,6 @@ import requests
 import logging
 import colorlog
 import sys
-import xmlrpclib
 import yaml
 
 logger = logging.getLogger(__name__)
@@ -194,7 +193,7 @@ def main():
                 else:
                     logger.info('BZ #{} is valid'.format(bz))
                     valid_bugs.append(bug)
-            except xmlrpclib.Fault as e:
+            except Exception as e:
                 if fatal:
                     logger.error('{}, quitting'.format(e))
                     sys.exit(1)
@@ -219,35 +218,41 @@ def main():
                         bzaf:
                          version: 1 <- type int
                          steps:
-                          backend: 'shell' <- type str
-                          cmd: 'echo some_command' <-type str
-                          rc: 0 <- type int
+                          step1:
+                           name: 'step_name' <- type str
+                           backend: 'shell' <- type str
+                           cmd: 'echo some_command' <-type str
+                           rc: 0 <- type int
+                          step2:
+                           name: 'step_name' <- type str
+                           backend: 'shell' <- type str
+                           cmd: 'echo some_command2' <-type str
+                           rc: 0 <- type int
                           """
                         logger.info(comment)
                         bzaf_spec = yaml.load(comment['text'])
-                        # Temporary check spec YAML according to types
-                        # TODO: Move check to spec validation
-                        tmp_rc = bzaf_spec['bzaf']['steps']['rc']
-                        tmp_cmd = bzaf_spec['bzaf']['steps']['cmd']
-                        tmp_backend = bzaf_spec['bzaf']['steps']['backend']
-                        tmp_version = bzaf_spec['bzaf']['version']
-                        if not (
-                            isinstance(tmp_rc, int) and
-                            isinstance(tmp_cmd, str) and
-                            isinstance(tmp_backend, str) and
-                            isinstance(tmp_version, int)
-                        ):
-                            raise ValueError('error please check yaml types, '
-                                             'ex: {}'.format(example_spec))
-
+                        for step in bzaf_spec['bzaf']['steps']:
+                            # Temporary check spec YAML according to types
+                            # TODO: Move check to spec validation
+                            tmp_rc = bzaf_spec['bzaf']['steps'][step]['rc']
+                            tmp_cmd = bzaf_spec['bzaf']['steps'][step]['cmd']
+                            tmp_backend = bzaf_spec['bzaf']['steps'][step]['backend']
+                            tmp_version = bzaf_spec['bzaf'][step]['version']
+                            if not (
+                                isinstance(tmp_rc, int) and
+                                isinstance(tmp_cmd, str) and
+                                isinstance(tmp_backend, str) and
+                                isinstance(tmp_version, int)
+                            ):
+                                raise ValueError('error please check yaml types, '
+                                                 'ex: {}'.format(example_spec))
                         logger.info('BZ #{} Valid bzaf spec '
                                     'found'.format(valid_bug.id))
                         break
 
+                    # Temporary fix: failed to locate bzaf spec in comment
                     except Exception as e:
-                        logger.error('exception: {}'.format(e))
-                        sys.exit(1)
-
+                        pass
                 else:
                     logger.debug('discarding {} no valid bzaf '
                                  'spec'.format(comment))
@@ -272,7 +277,7 @@ def main():
                     try:
                         bugzilla_instance.update_bugs(valid_bug.id, update)
                         logger.info('Updated bug {}'.format(valid_bug.id))
-                    except xmlrpclib.Fault as e:
+                    except Exception as e:
                         logger.error('Failed to Update bug #{b}\n{e}'
                                      .format(b=valid_bug.id, e=e))
                         sys.exit(1)
