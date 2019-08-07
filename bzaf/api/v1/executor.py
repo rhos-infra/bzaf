@@ -15,18 +15,23 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 from bzaf.api.v1.backends import shell
+from bzaf.api.v1.backends import ansible
 
 
 def execute(spec):
     # Iterate over steps in spec
-    for step in spec['steps']:
-        # step_name = step['name'].text
-        step_backend = spec['steps']['backend']
+    # step_name = step['name'].text
+    step_backend = spec['steps']['backend']
+    step_rc = spec['steps']['rc']
+    # Execute command when using 'shell' backend
+    if step_backend == 'shell':
         step_cmd = spec['steps']['cmd']
-        step_rc = spec['steps']['rc']
-        # Execute command when using 'shell' backend
-        if step_backend == 'shell':
-            result = shell.run(step_cmd, step_rc)
-            if not result:
-                return False
+        result = shell.run(step_cmd, step_rc)
+        if not result:
+            return False
+    if step_backend == 'ansible':
+        step_playbook = spec['steps']['playbook']
+        result = ansible.run(step_playbook)
+        if not result:
+            return False
     return True

@@ -58,6 +58,43 @@ def validate_initial_spec(spec):
     SUPPORTED_VERSIONS[version].spec.validate(modified_spec)
 
 
+def validate_spec_types(spec):
+    # Temporary check spec YAML according to types
+
+    example_spec = """
+    bzaf:
+     version: 1 <- type int
+     steps:
+      backend: 'shell' <- type str
+      cmd: 'echo some_command' <-type str
+      rc: 0 <- type int
+    # or using an ansible backend:
+    bzaf:
+     version: 1 <- type int
+     steps:
+      backend: 'ansible' <- type str
+      playbook: 'echo some_command' <-type yaml str
+      rc: 0 <- type int"""
+
+    tmp_backend = spec['bzaf']['steps']['backend']
+    if tmp_backend == 'shell':
+        backend_args = spec['bzaf']['steps']['cmd']
+    elif tmp_backend == 'ansible':
+        backend_args = spec['bzaf']['steps']['playbook']
+    tmp_rc = spec['bzaf']['steps']['rc']
+    tmp_version = spec['bzaf']['version']
+
+    if not (
+            isinstance(tmp_rc, int) and
+            isinstance(backend_args, str) and
+            isinstance(tmp_backend, str) and
+            isinstance(tmp_version, int)
+    ):
+        raise ValueError('error please check yaml types, '
+                         'ex: {}'.format(example_spec))
+    return True
+
+
 def execute_spec(spec):
 
     if v1.executor.execute(spec):
