@@ -14,19 +14,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-import subprocess
 
-
-def run(cmd, rc):
-    # Execute command
-    cmd_rc = subprocess.call(cmd, shell=True)
-    # If executed return code equals desired return code
-    if rc == cmd_rc:
-        print('SUCCESSFUL CMD: {}'.format(cmd))
-        return True
-    else:
-        print('FAILED CMD: {c}\nRETURN RECIEVED CODE: {r}'
-              '\nEXPECTED CODE: {e}'.format(c=cmd,
-                                            r=cmd_rc,
-                                            e=rc))
-        return False
+schema = {
+    "type": "object",
+    "required": ["bzaf"],
+    "properties": {
+        "bzaf": {
+            "type": "object",
+            "required": ["version", "verification_steps"],
+            "properties": {
+                "version": {
+                    "type": "number"
+                },
+                "verification_steps": {
+                    "type": "array"
+                }
+            }
+        }
+    }
+}

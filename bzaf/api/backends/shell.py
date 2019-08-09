@@ -14,14 +14,9 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from bzaf.api.v1.schemas import steps
+
+import bzaf.api.backends
 
 
-def validate(spec):
-    # Iterate over keys in spec
-    for key in spec:
-        # Valie steps key - steps is required
-        if key == 'steps':
-            steps.validate_steps(spec['steps'])
-        else:
-            print('{} is not part of version 1'.format(key))
+class ShellBackend(bzaf.api.backends.BaseBackend):
+    name = 'shell'
