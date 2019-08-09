@@ -14,23 +14,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-import sys
-from strictyaml import load, Map, Int, Str
 
-SCHEMA = Map({
-    'name': Str(),
-    'rc': Int(),
-    'cmd': Str(),
-    'backend': Str()
-})
+from bzaf.api.backends import BaseBackend
 
 
-def validate_steps(spec):
-    # Validate each step in spec
-    for step in spec:
-        try:
-            load(step.as_yaml(), SCHEMA)
-        # Schema validation failed
-        except Exception as e:
-            print(e)
-            sys.exit(1)
+class ShellBackend(BaseBackend):
+    def __init__(self, version):
+        self.name = 'shell'
+        self.version = version
+        self.min_version = 1
+        self.max_version = self.min_version
+        super(ShellBackend, self).__init__(self.name,
+                                           self.version,
+                                           self.min_version,
+                                           self.max_version,
+                                           'a',
+                                           'a')

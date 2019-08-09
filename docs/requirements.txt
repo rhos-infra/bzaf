@@ -4,3 +4,4 @@ sphinx>=1.5.1
 sphinx-autobuild
 insegel
 Pygments>=2.2.0
+PyYAML

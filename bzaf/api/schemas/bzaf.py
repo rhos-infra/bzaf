@@ -14,19 +14,22 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from bzaf.api.v1.backends import shell
 
-
-def execute(spec):
-    # Iterate over steps in spec
-    for step in spec['steps']:
-        # step_name = step['name'].text
-        step_backend = spec['steps']['backend']
-        step_cmd = spec['steps']['cmd']
-        step_rc = spec['steps']['rc']
-        # Execute command when using 'shell' backend
-        if step_backend == 'shell':
-            result = shell.run(step_cmd, step_rc)
-            if not result:
-                return False
-    return True
+schema = {
+    "type": "object",
+    "required": ["bzaf"],
+    "properties": {
+        "bzaf": {
+            "type": "object",
+            "required": ["version", "verification_steps"],
+            "properties": {
+                "version": {
+                    "type": "number"
+                },
+                "verification_steps": {
+                    "type": "array"
+                }
+            }
+        }
+    }
+}

@@ -2,3 +2,4 @@ pbr == 5.2.0
 python-bugzilla == 2.2.0
 strictyaml == 1.0.1
 colorlog  == 4.0.2
+jsonschema
