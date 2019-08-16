@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "af1635f1_1b179ea2",
+        "filename": "bzaf/api/backends/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-16T13:09:03Z",
+      "side": 1,
+      "message": "are these abstract methods ? \nif so  why not use abc\u0027s abstractmethod ? \n(https://docs.python.org/2/library/abc.html)",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "3388adccc87542a06ef8927fe65d3b83ac9fc34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad95385c_34f41986",
+        "filename": "bzaf/api/backends/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2019-08-16T13:09:03Z",
+      "side": 1,
+      "message": "what does this do ? search for backend classes in files ? \nthis seems too complex ..?",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 46
+      },
+      "revId": "3388adccc87542a06ef8927fe65d3b83ac9fc34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
