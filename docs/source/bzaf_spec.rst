@@ -21,6 +21,8 @@ Goals of ``bzaf`` spec:
 bzaf Microversions
 ==================
 
+.. image:: _static/bzaf_microversion.png
+
 `bzaf` uses the concept of microversions in order to expose the
 available capabilities to the user.
 
