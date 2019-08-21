@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "69b56511_bf08e95e",
+        "filename": "bzaf/api/backends/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-21T20:23:12Z",
+      "side": 1,
+      "message": "Yes, I will consider this once I have something working.",
+      "parentUuid": "af1635f1_1b179ea2",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "3388adccc87542a06ef8927fe65d3b83ac9fc34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ad95385c_34f41986",
         "filename": "bzaf/api/backends/__init__.py",
         "patchSetId": 4
@@ -60,6 +84,30 @@
       "side": 1,
       "message": "also , for something this complex please add a docstring, that docstring\u0027s readability should be as important as the validity of the code here..",
       "parentUuid": "ad95385c_34f41986",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 46
+      },
+      "revId": "3388adccc87542a06ef8927fe65d3b83ac9fc34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4ffaa2a0_4a197d61",
+        "filename": "bzaf/api/backends/__init__.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-08-21T20:23:12Z",
+      "side": 1,
+      "message": "1. It is a bit complex but less complex, this is a same behaviour like in Ansible. For example in Ansible, once you populate the modules directory Ansible is performing discovery and validation if the module is usable, I think that this will translate well also for this project.\n\n2. You are 100% correct regarding docstring, this is currently heavy WIP.",
+      "parentUuid": "9a5f81d1_794e0646",
       "range": {
         "startLine": 49,
         "startChar": 0,
