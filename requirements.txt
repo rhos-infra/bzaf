@@ -4,3 +4,6 @@ strictyaml == 1.0.1
 colorlog  == 4.0.2
 ansible-runner
 psutil
+pathlib
+jsonschema
+PyYAML

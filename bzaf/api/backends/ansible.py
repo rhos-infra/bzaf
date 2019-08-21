@@ -14,19 +14,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-import subprocess
+
+from bzaf.api.backends import BaseBackend
 
 
-def run(cmd, rc):
-    # Execute command
-    cmd_rc = subprocess.call(cmd, shell=True)
-    # If executed return code equals desired return code
-    if rc == cmd_rc:
-        print('SUCCESSFUL CMD: {}'.format(cmd))
-        return True
-    else:
-        print('FAILED CMD: {c}\nRETURN RECIEVED CODE: {r}'
-              '\nEXPECTED CODE: {e}'.format(c=cmd,
-                                            r=cmd_rc,
-                                            e=rc))
-        return False
+class AnsibleBackend(BaseBackend):
+    def __init__(self, version):
+        self.name = 'ansible'
+        self.version = version
+        self.min_version = 1
+        self.max_version = self.min_version
+        super(AnsibleBackend, self).__init__(self.name,
+                                             self.version,
+                                             self.min_version,
+                                             self.max_version,
+                                             'a',
+                                             'a')
