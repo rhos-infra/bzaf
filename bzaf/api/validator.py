@@ -19,12 +19,28 @@ from bzaf.api import v1
 from strictyaml import load, Map, Int, as_document
 import sys
 
-
 SCHEME = Map({'version': Int()})
 
 SUPPORTED_VERSIONS = {
                         1: v1
                      }
+
+
+def validate_job_env(spec, args_job_env, logger):
+    spec_job_env_list = spec['bzaf']['job_env'].split(',')
+    if all(spec_job_env_str in args_job_env for spec_job_env_str
+           in spec_job_env_list):
+        logger.info('All spec_job_env_list: {} are matched in '
+                    'args_job_env: {} ,  we can continue with '
+                    'auto verification..'
+                    .format(spec_job_env_list, args_job_env))
+        return True
+    else:
+        logger.info('Not all spec_job_env_list: {} are matched in '
+                    'args.job_env: {}, we can\'t continue with '
+                    'auto verification..'
+                    .format(spec_job_env_list, args_job_env))
+        return False
 
 
 def _get_spec_version(version_string):
@@ -64,16 +80,27 @@ def validate_spec_types(spec):
     example_spec = """
     bzaf:
      version: 1 <- type int
+     job_env: pidone,3cont_2comp  <- type comma delimited str (i.e.:dfg,
+     job_topology)
      steps:
       backend: 'shell' <- type str
       cmd: 'echo some_command' <-type str
       rc: 0 <- type int
+      name: 'first step'
     # or using an ansible backend:
     bzaf:
      version: 1 <- type int
+     job_env: pidone,3cont_2comp  <- type comma delimited str (i.e.:dfg,
+     job_topology)
      steps:
       backend: 'ansible' <- type str
-      playbook: 'echo some_command' <-type yaml str
+      playbook: <-type yaml str
+         - hosts: localhost
+           tasks:
+             - name: bla
+               shell: |
+               echo "bzaf rules!"
+      name: 'first step'
       rc: 0 <- type int"""
 
     tmp_backend = spec['bzaf']['steps']['backend']
@@ -83,15 +110,19 @@ def validate_spec_types(spec):
         backend_args = spec['bzaf']['steps']['playbook']
     tmp_rc = spec['bzaf']['steps']['rc']
     tmp_version = spec['bzaf']['version']
+    job_env = spec['bzaf']['job_env']
 
+# Todo: add individual spec verifications here
     if not (
             isinstance(tmp_rc, int) and
-            isinstance(backend_args, str) and
+            isinstance(backend_args, (str, list)) and
             isinstance(tmp_backend, str) and
-            isinstance(tmp_version, int)
+            isinstance(tmp_version, int) and
+            isinstance(job_env, str)
+
     ):
         raise ValueError('error please check yaml types, '
-                         'ex: {}'.format(example_spec))
+                         'Example: {}'.format(example_spec))
     return True
 
 
