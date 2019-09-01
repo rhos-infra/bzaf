@@ -58,6 +58,12 @@ def parse_args():
                         help='set status for bug which verified')
     parser.add_argument('--verified-resolution', required=True,
                         help='set resolution for bug which verified')
+    parser.add_argument('--job-env', required=True,
+                        help='delimited job env list of strings for '
+                             'verification, matching '
+                             'between the automation job and bzaf '
+                             'verification spec, Example: --job-env \'$dfg,'
+                             '3cont_2comp\'')
     return parser.parse_args()
 
 
@@ -112,9 +118,11 @@ def main():
     current_status = args.current_status
     verified_status = args.verified_status
     resolution = args.verified_resolution
+    job_env = args.job_env
     logger.debug('Set current status to: {}'.format(current_status))
     logger.debug('Set verified status to: {}'.format(verified_status))
     logger.debug('Set verified resolution to: {}'.format(resolution))
+    logger.debug('Set job_env list to: {}'.format(job_env))
 
     # Try to connect to bugzilla XMLRPC API endpoint
     try:
@@ -222,10 +230,16 @@ def main():
                         if validator.validate_spec_types(bzaf_spec):
                             logger.info('BZ #{} Valid bzaf spec '
                                         'found'.format(valid_bug.id))
+                            # continue only if a match exists between the bzaf
+                            # spec's job_env and the automation job's env
+                            if not validator.validate_job_env(bzaf_spec,
+                                                              job_env, logger):
+                                bzaf_found = False
 
                     # Temporary fix: failed to locate bzaf spec in comment
                     except Exception as e:
                         print(e)
+                        sys.exit()
                 else:
                     logger.debug('discarding {} no valid bzaf '
                                  'spec'.format(comment))
