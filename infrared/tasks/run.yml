@@ -1,0 +1,4 @@
+- name: Run Tobiko Tests
+  shell: |
+      cd "{{ dir }}"
+      bzaf {{ test.bzaf_cmd_attrd }}
