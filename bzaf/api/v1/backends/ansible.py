@@ -27,7 +27,8 @@ def run(step_playbook):
         playbook_outfile.close()
     # run supplied playbook
     playbook_run = ansible_runner.run(private_data_dir='/tmp',
-                                      playbook='/tmp/playbook.yml')
+                                      playbook='/tmp/playbook.yml',
+                                      verbosity=2)
     print("{}: {}".format(playbook_run.status, playbook_run.rc))
     if playbook_run.stats['failures']:
         print(playbook_run.stats['failures'])
