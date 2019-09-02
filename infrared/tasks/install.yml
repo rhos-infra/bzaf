@@ -1,0 +1,37 @@
+- name: Install pip using get-pip.py
+  become: yes
+  shell: |
+      curl https://bootstrap.pypa.io/get-pip.py | python
+
+- name: Install required packages
+  become: yes
+  vars:
+    required_packages: ['python-virtualenv', 'git', 'gcc', 'python-devel', 'wget']
+  yum:
+      name: "{{ required_packages }}"
+      state: present
+
+- name: "Ensure {{ dir }} doesn't exist"
+  file:
+    path: "{{ dir }}"
+    state: absent
+
+- name: Clone Tobiko project
+  git:
+      repo: 'https://review.opendev.org/x/tobiko'
+      dest: "{{ dir }}"
+
+- name: Create Virtualenv
+  vars:
+      packages: ['pip', 'setuptools', 'tox']
+  pip:
+      virtualenv: "{{ venv }}"
+      name: "{{ packages }}"
+      state: latest
+
+- name: Install Bzaf
+  pip:
+      chdir: "{{ dir }}"
+      name: "."
+      virtualenv: "{{ venv }}"
+      editable: true
