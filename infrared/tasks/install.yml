@@ -1,0 +1,57 @@
+- name: Install pip using get-pip.py
+  become: yes
+  shell: |
+      curl https://bootstrap.pypa.io/get-pip.py | python
+
+- name: Install required packages
+  become: yes
+  vars:
+    required_packages: ['python-virtualenv', 'git', 'gcc', 'python-devel', 'wget']
+  yum:
+      name: "{{ required_packages }}"
+      state: present
+
+- name: "Ensure {{ dir }} doesn't exist"
+  file:
+    path: "{{ dir }}"
+    state: absent
+
+- name: Clone Tobiko project
+  git:
+      repo: 'https://github.com/rhos-infra/bzaf.git'
+      dest: "{{ dir }}"
+  when: test.refsec == ''
+
+- name: Checkout specific gerrit patch
+  git:
+    repo: 'https://github.com/rhos-infra/bzaf.git'
+    dest: "{{ dir }}"
+    refspec: "{{ test.refsec }}"
+    version: 'FETCH_HEAD'
+  when: test.refsec != ''
+
+- name: output gerrit patch log
+  shell: |
+        git log -n 1
+  register: git_log
+  args:
+    chdir: "{{ dir }}"
+  when: test.refsec != ''
+
+- debug: var=git_log.stdout_lines
+  when: test.refsec != ''
+
+- name: Create Virtualenv
+  vars:
+      packages: ['pip', 'setuptools', 'tox']
+  pip:
+      virtualenv: "{{ venv }}"
+      name: "{{ packages }}"
+      state: latest
+
+- name: Install Bzaf
+  pip:
+      chdir: "{{ dir }}"
+      name: "."
+      virtualenv: "{{ venv }}"
+      editable: true
