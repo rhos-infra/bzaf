@@ -1,0 +1,5 @@
+- name: Run Bzaf , try auto verification for this job..
+  shell: |
+      cd "{{ dir }}"
+      source "{{ venv }}/bin/activate"
+      bzaf {{ test.bzaf_cmd_attrd }}
