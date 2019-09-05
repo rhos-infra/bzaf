@@ -26,12 +26,7 @@ def execute(spec):
     # Execute command when using 'shell' backend
     if step_backend == 'shell':
         step_cmd = spec['steps']['cmd']
-        result = shell.run(step_cmd, step_rc)
-        if not result:
-            return False
+        return shell.run(step_cmd, step_rc)
     if step_backend == 'ansible':
         step_playbook = spec['steps']['playbook']
-        result = ansible.run(step_playbook)
-        if not result:
-            return False
-    return True
+        return ansible.run(step_playbook)
