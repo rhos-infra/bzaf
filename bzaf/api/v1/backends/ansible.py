@@ -16,6 +16,7 @@ limitations under the License.
 """
 import ansible_runner
 import yaml
+from collections import namedtuple
 
 
 def run(step_playbook):
@@ -32,5 +33,17 @@ def run(step_playbook):
     print("{}: {}".format(playbook_run.status, playbook_run.rc))
     if playbook_run.stats['failures']:
         print(playbook_run.stats['failures'])
-        return False
-    return True
+        execution_successful = False
+    else:
+        execution_successful = True
+        playbook_run.stats['failures'] = ''
+
+# create a namedtuple to hold the execution rc and stdout/err
+    execution_result = namedtuple('execution_result',
+                                  ['execution_sucesfull', 'rc', 'stdout',
+                                   'stderr'])
+    stdout = playbook_run.stdout.readlines()
+    execution_result = execution_result(execution_successful,
+                                        playbook_run.rc, stdout,
+                                        playbook_run.stats['failures'])
+    return execution_result

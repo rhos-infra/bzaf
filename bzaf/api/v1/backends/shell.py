@@ -15,18 +15,33 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import subprocess
+from subprocess import Popen
+from collections import namedtuple
 
 
 def run(cmd, rc):
+
     # Execute command
-    cmd_rc = subprocess.call(cmd, shell=True)
+    shel_run = Popen(cmd.split(), stdout=subprocess.PIPE,
+                     stderr=subprocess.PIPE,
+                     universal_newlines=True)
+    output, errors = shel_run.communicate()
+
     # If executed return code equals desired return code
-    if rc == cmd_rc:
-        print('SUCCESSFUL CMD: {}'.format(cmd))
-        return True
+    if rc == shel_run.returncode:
+        execution_successful = True
+        print('SUCCESSFUL CMD: {}, OUTPUT: {}'.format(cmd, output))
     else:
-        print('FAILED CMD: {c}\nRETURN RECIEVED CODE: {r}'
+        execution_successful = False
+        print('FAILED CMD: {c} OUTPUT: {err}\nRETURN RECIEVED CODE: {r}'
               '\nEXPECTED CODE: {e}'.format(c=cmd,
-                                            r=cmd_rc,
+                                            err=errors,
+                                            r=shel_run.returncode,
                                             e=rc))
-        return False
+# create a namedtuple to hold the execution rc and stdout/err
+    execution_result = namedtuple('execution_result',
+                                  ['execution_sucesfull', 'rc', 'stdout',
+                                   'stderr'])
+    execution_result = execution_result(execution_successful,
+                                        shel_run.returncode, output, errors)
+    return execution_result
