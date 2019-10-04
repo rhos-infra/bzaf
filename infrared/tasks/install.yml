@@ -55,3 +55,13 @@
       name: "."
       virtualenv: "{{ venv }}"
       editable: true
+
+- name: Create an overcloud inventory file
+  shell: |
+      source {{ ansible_env.HOME }}/stackrc
+      tripleo-ansible-inventory --ansible_ssh_user heat-admin --static-yaml-inventory {{ dir }}/hosts.yaml
+
+- name: Patch inventory file ^[A-Z] => ^[a-z]
+  shell: |
+      sed -i -e 's/\(^[A-Z]\)/\L\1/' {{ dir }}/hosts.yaml
+

@@ -14,6 +14,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
+import os
+
 import ansible_runner
 import yaml
 from collections import namedtuple
@@ -26,10 +28,21 @@ def run(step_playbook):
         playbook_outfile.write(yaml.dump(step_playbook,
                                          default_flow_style=True))
         playbook_outfile.close()
-    # run supplied playbook
-    playbook_run = ansible_runner.run(private_data_dir='/tmp',
-                                      playbook='/tmp/playbook.yml',
-                                      verbosity=2)
+    # run supplied playbook:
+    # if we are on an undercloud , with an overcloud inventory file :)
+    # TODO: less static please :)
+    if os.path.isfile('/home/stack/bzaf/hosts.yaml'):
+        playbook_run = ansible_runner.run(
+                      inventory='/home/stack/bzaf/hosts.yaml',
+                      private_data_dir='/tmp',
+                      playbook='/tmp/playbook.yml',
+                      verbosity=2)
+    else:
+        playbook_run = ansible_runner.run(
+            private_data_dir='/tmp',
+            playbook='/tmp/playbook.yml',
+            verbosity=2)
+
     print("{}: {}".format(playbook_run.status, playbook_run.rc))
     if playbook_run.stats['failures']:
         print(playbook_run.stats['failures'])
