@@ -227,6 +227,9 @@ def main():
             comments = valid_bug.getcomments()
             # Iterate over comments in reverse order (from last to first)
             for comment in reversed(comments):
+                # security override : skip bz verification if found:
+                if 'bzaf_skip' in comment['text'] and comment["is_private"]:
+                    break
                 # if 'bzaf' in comment and if it's private:
                 if 'bzaf:' in comment['text'] and comment["is_private"]:
                     bzaf_found = True
