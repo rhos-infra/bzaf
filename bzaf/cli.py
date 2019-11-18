@@ -227,8 +227,8 @@ def main():
             comments = valid_bug.getcomments()
             # Iterate over comments in reverse order (from last to first)
             for comment in reversed(comments):
-
-                if 'bzaf:' in comment['text']:
+                # if 'bzaf' in comment and if it's private:
+                if 'bzaf:' in comment['text'] and comment["is_private"]:
                     bzaf_found = True
                     logger.debug(comment)
                     logger.debug(comment['text'])
