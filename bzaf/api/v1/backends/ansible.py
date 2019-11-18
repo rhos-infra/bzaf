@@ -15,7 +15,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 import os
-
+import re
 import ansible_runner
 import yaml
 from collections import namedtuple
@@ -55,8 +55,21 @@ def run(step_playbook):
     execution_result = namedtuple('execution_result',
                                   ['execution_sucesfull', 'rc', 'stdout',
                                    'stderr'])
-    stdout = playbook_run.stdout.readlines()
+    stdout = fix_ansi_list(playbook_run.stdout.readlines())
     execution_result = execution_result(execution_successful,
                                         playbook_run.rc, stdout,
                                         playbook_run.stats['failures'])
     return execution_result
+
+def ansi_escaped(string):
+     ansi_escape = re.compile(r''' 
+     \x1B    # ESC   
+     [@-_]   # 7-bit C1 Fe 
+     [0-?]*  # Parameter bytes 
+     [ -/]*  # Intermediate bytes 
+     [@-~]   # Final byte 
+ ''', re.VERBOSE)
+     return ansi_escape.sub('', string)
+
+def fix_ansi_list(list_to_fix):
+    return list(map(ansi_escaped,list_to_fix))
