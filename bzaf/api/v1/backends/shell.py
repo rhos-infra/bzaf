@@ -22,8 +22,9 @@ from collections import namedtuple
 def run(cmd, rc):
 
     # Execute command
-    shel_run = Popen(cmd.split(), stdout=subprocess.PIPE,
+    shel_run = Popen(cmd, stdout=subprocess.PIPE,
                      stderr=subprocess.PIPE,
+                     shell=True,
                      universal_newlines=True)
     output, errors = shel_run.communicate()
 
