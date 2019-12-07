@@ -65,3 +65,13 @@
   shell: |
       sed -i -e 's/\(^[A-Z]\)/\L\1/' {{ dir }}/hosts.yaml
 
+- name: install rpm_compare_util on the openstack_nodes
+  become: true
+  delegate_to: "{{item}}"
+  template:
+    src: templates/rpm_compare.j2
+    dest: /usr/bin/rpm_compare
+    owner: root
+    group: root
+    mode: '0755'
+  loop: "{{groups['openstack_nodes']}}"

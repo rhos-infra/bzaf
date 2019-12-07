@@ -1,0 +1,36 @@
+#!/usr/libexec/platform-python
+
+import rpm
+import re
+import sys
+import subprocess
+
+ver_test = sys.argv[1]
+
+ver_current_name = re.sub("-[0-9].*", '', sys.argv[1]);
+
+def get_ver_current(ver_current_name):
+        rpm_out = subprocess.Popen(['rpm', '-q', ver_current_name],
+                     stdout=subprocess.PIPE,
+                     stderr=subprocess.STDOUT)
+        stdout,stderr = rpm_out.communicate()
+        return stdout.decode()
+
+ver_current = get_ver_current(ver_current_name)
+
+
+def rpm_compare(ver_test, ver_current):
+    'compare two version strings and return -1, 0, 1 for less, equal, greater'
+    return rpm.labelCompare(('', ver_test, ''), ('', ver_current, ''))
+
+
+r=rpm_compare(ver_test,ver_current)
+
+print("package tested: {}".format(ver_test))
+print("package current : {}".format(ver_current))
+
+if r >= 0 :
+    print("PASS, package tested version is equal or greater than current")
+elif r < 0 :
+    print("FAIL, package tested version is older than current")
+    sys.exit(1)
