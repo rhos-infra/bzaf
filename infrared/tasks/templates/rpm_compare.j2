@@ -14,7 +14,12 @@ def get_ver_current(ver_current_name):
                      stdout=subprocess.PIPE,
                      stderr=subprocess.STDOUT)
         stdout,stderr = rpm_out.communicate()
-        return stdout.decode()
+        if rpm_out.returncode != 0:
+            print("ERROR, package query failed: returncode: {}, message: {}".format(rpm_out.returncode,stdout.decode()))
+            sys.exit(1)
+
+        else:
+            return stdout.decode()
 
 ver_current = get_ver_current(ver_current_name)
 
