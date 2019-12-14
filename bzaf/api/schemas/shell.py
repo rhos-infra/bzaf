@@ -14,23 +14,23 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-import sys
-from strictyaml import load, Map, Int, Str
 
-SCHEMA = Map({
-    'name': Str(),
-    'rc': Int(),
-    'cmd': Str(),
-    'backend': Str()
-})
+# TODO(vkhitirn): Enhance backend schema to support additional feature such
+#                 as inventory
 
-
-def validate_steps(spec):
-    # Validate each step in spec
-    for step in spec:
-        try:
-            load(step.as_yaml(), SCHEMA)
-        # Schema validation failed
-        except Exception as e:
-            print(e)
-            sys.exit(1)
+schema = {
+    "type": "object",
+    "required": [
+        "cmd",
+        "rc"
+    ],
+    "properties": {
+        "cmd": {
+            "type": "string"
+        },
+        "rc": {
+            "type": "integer"
+        }
+    },
+    "additionalProperties": False
+}
