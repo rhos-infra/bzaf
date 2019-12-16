@@ -34,8 +34,8 @@ r=rpm_compare(ver_test,ver_current)
 print("package tested: {}".format(ver_test))
 print("package current : {}".format(ver_current))
 
-if r >= 0 :
-    print("PASS, package tested version is equal or greater than current")
-elif r < 0 :
-    print("FAIL, package tested version is older than current")
+if r < 0 :
+    print("PASS, package tested version is equal or older than current")
+elif r >= 0 :
+    print("FAIL, package tested version is newer than current")
     sys.exit(1)
