@@ -35,8 +35,7 @@ print("package tested: {}".format(ver_test))
 print("package current : {}".format(ver_current))
 
 if r < 0 :
-    print("PASS, package_git tested version is equal or older than the
-  one installed")
+    print("PASS, package_git tested version is equal or older than the one installed")
 elif r >= 0 :
     print("FAIL, package_tested version is newer than the one installed")
     sys.exit(1)
