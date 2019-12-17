@@ -1,7 +1,7 @@
 - name: Bzaf Main
   hosts: undercloud
   gather_facts: yes
-  any_errors_fatal: yes
+  ignore_errors: true
   vars:
     dir: "{{ ansible_env.HOME }}/bzaf"
     venv: "{{ ansible_env.HOME }}/bzaf_venv"
