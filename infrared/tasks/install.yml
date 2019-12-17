@@ -56,6 +56,13 @@
       virtualenv: "{{ venv }}"
       editable: true
 
+- name: line_in_file fix for bz1752148
+  become: true
+  lineinfile:
+       path: /bin/tripleo-ansible-inventory
+       regexp: '#!/usr/bin/python3 -s'
+       line: '#!/usr/bin/python3'
+
 - name: Create an overcloud inventory file
   shell: |
       source {{ ansible_env.HOME }}/stackrc
