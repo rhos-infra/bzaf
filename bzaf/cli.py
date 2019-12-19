@@ -289,6 +289,7 @@ def main():
                         break
                     else:
                         logger.error("Failed to verify bug")
+                        break
 
         # Prepare execution summary
         prepare_summary(len(bzids), len(valid_bugs), len(auto_verified_bugs),
