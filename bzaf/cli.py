@@ -288,12 +288,35 @@ def main():
                         # we can stop recursing over the bz comments
                         break
                     else:
+                        #Todo:
                         logger.error("Failed to verify bug")
+                        write_stderr_to_file()
+                        update_bzaf_stderr_attachment()
+                        update_bz_bzaf_stderr_comment()
 
         # Prepare execution summary
         prepare_summary(len(bzids), len(valid_bugs), len(auto_verified_bugs),
                         auto_verified_comments)
 
+
+def write_stderr_to_file():
+    """If verification failed we can prepare the stderr in a file
+    for attachement usage:  /tmp/bzaf_latest_verification_failure.log """
+    pass
+
+def update_bzaf_stderr_attachment():
+    """If verification failed
+    check if a attachment with that file name
+    (bzaf_latest_verification_failure.log)exists,
+     if so update it, else upload new."""
+    pass
+
+def update_bz_bzaf_stderr_comment():
+    """If verification failed
+    check if the latest comment is : bzaf
+    autoverification verification failure,
+    see updated attachment: bzaf_latest_verification_failure """
+    pass
 
 if __name__ == '__main__':
     main()
