@@ -12,4 +12,5 @@ Trello: https://trello.com/b/lpyZ2dRp/bzaf
 Proof of Concept
 ================
 
-As per now, ``bzaf`` is a PoC project being developed by Red Hat OpenStack teams.
+As per now, ``bzaf`` is a PoC project being developed
+by Red Hat OpenStack teams.

@@ -17,7 +17,8 @@ All communication with bugzilla is done through
 CLI
 ===
 
-After following the :ref:`installing:Installation Guide`, ``bzaf`` binary will be present.
+After following the :ref:`installing:Installation Guide`,
+``bzaf`` binary will be present.
 
 Arguments
 ---------
@@ -44,18 +45,6 @@ Arguments
 **Example**::
 
   bzaf --debug
-
-
---fatal
-^^^^^^^
-
-**Required**: False
-
-**Description**: Any issue will cause the tool to quit
-
-**Example**::
-
-  bzaf --fatal
 
 
 --interactive-login
@@ -109,8 +98,8 @@ API key (bugzilla 5+)
   bzaf --bugzilla http://localhost
 
 
---bzid
-^^^^^^
+--bug-id
+^^^^^^^^
 
 **Required**: True, mutually exclusive with ``--bz-query``
 
@@ -119,18 +108,18 @@ can be provided
 
 **Example**::
 
-  bzaf --bzid 1 --bzid 2
+  bzaf --bug-id 1 --bug-id 2
 
 --bz-query
 ^^^^^^^^^^
 
-**Required**: True, mutually exclusive with ``--bzid``
+**Required**: True, mutually exclusive with ``--bug-id``
 
 **Description**: Bugzilla saved/advanced search query to use to query bugs
 
 **Example**::
 
-  bzaf --bz-query http://localhost/buglist.cgi?bug_status=__open__&list_id=2&order=Importance&query_format=specific
+  bzaf --bugzilla-query http://localhost/buglist.cgi?bug_status=__open__&list_id=2&order=Importance&query_format=specific
 
 --current-status
 ^^^^^^^^^^^^^^^^
@@ -167,3 +156,16 @@ verified (not required by all states)
 **Example**::
 
   bzaf --verified-resolution FIXED
+
+
+--private-comments-only
+^^^^^^^^^^^^^^^^^^^^^^^
+
+**Required**: False
+
+**Description**: Set to look for bzaf spec only in
+private comments
+
+**Example**::
+
+  bzaf --parse-comments-only
