@@ -14,14 +14,25 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from bzaf.api.v1.schemas import steps
+
+import logging
 
 
-def validate(spec):
-    # Iterate over keys in spec
-    for key in spec:
-        # Valie steps key - steps is required
-        if key == 'steps':
-            steps.validate_steps(spec['steps'])
-        else:
-            print('{} is not part of version 1'.format(key))
+def subscribe_to_logger():
+    lg = logging.getLogger(__name__)
+    return lg
+
+
+def configure_logger(debug=False):
+    log_level = logging.FATAL
+    if debug:
+        log_level = logging.DEBUG
+    formatter = logging.Formatter(fmt='%(levelname)s '
+                                      '%(module)s %(message)s')
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+
+    logger = subscribe_to_logger()
+    logger.setLevel(log_level)
+    logger.addHandler(handler)
+    return logger

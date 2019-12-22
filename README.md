@@ -1,6 +1,6 @@
 # bzaf
 
-**Proof of Concept Repo**
+This is a **Proof of Concept Repo**
 
 `bzaf` is a Bugzilla Auto Verification Tool.
 
