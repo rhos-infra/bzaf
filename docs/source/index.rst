@@ -1,6 +1,6 @@
-=================
+==========
 About bzaf
-=================
+==========
 
 ``bzaf`` is a python based `Bugzilla <https://www.bugzilla.org/>`_ auto verification tool.
 
@@ -8,18 +8,17 @@ About bzaf
 focusing on ease-of-use and simplicity.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Installing
 
    installing
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Using bzaf
 
    user_guide
    quickstart
-   working_with_bzaf
 
 .. toctree::
    :maxdepth: 2
@@ -27,10 +26,18 @@ focusing on ease-of-use and simplicity.
 
    bzaf_spec
    bzaf_microversions
+   backends
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Roadmap
 
    design_philosophy
    roadmap
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Developing bzaf
+
+   contribution
+   developing_backends
