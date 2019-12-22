@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 """
 Copyright 2019 Vadim Khitrin <me@vkhitrin.com>
+               Pini Komarov  <pkomarov@redhat.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -15,33 +16,31 @@ See the License for the specific language governing permissions and
 limitations under the License.
 """
 
-from __future__ import print_function
+
 import argparse
 import bugzilla
 import bzaf.version
 from bzaf.api import validator
+from bzaf.utils import exceptions
+from bzaf.utils import logger
+from bzaf.utils import summary
 import requests
-import logging
-import colorlog
-import sys
-import yaml
-
-logger = logging.getLogger(__name__)
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Bugzilla Auto Verification'
                                                  'Tool')
     parser.add_argument('--debug', help='show debug', action='store_true')
-    parser.add_argument('--fatal', help='any error is fatal',
-                        action='store_true')
-    bz_login_group = parser.add_mutually_exclusive_group(required=True)
+    bz_login_group = parser.add_mutually_exclusive_group(required=False)
     bz_login_group.add_argument('--interactive-login', action='store_true',
                                 help='use interactive login if no cached '
                                      'credentials')
     bz_login_group.add_argument('--access-api-key',
                                 help='use api token key instead of '
                                      'interactive login')
+    parser.add_argument('--private-comments-only', action='store_true',
+                        help='Executes spec from private comments only',
+                        required=False)
     parser.add_argument('--version', action='version',
                         version=bzaf.version.__version__)
     parser.add_argument('--bugzilla', required=True,
@@ -58,7 +57,10 @@ def parse_args():
                         help='set status for bug which verified')
     parser.add_argument('--verified-resolution', required=True,
                         help='set resolution for bug which verified')
-    parser.add_argument('--job-env', required=True,
+    # TODO(vkhitrin: Implement noop logic, execute program without executing
+    #                bzaf spec and without updating bug
+    # TODO: Consider migrating this argument to a workflow specific to RHOS-QE
+    parser.add_argument('--job-env', required=False,
                         help='delimited job env list of strings for '
                              'verification, matching '
                              'between the automation job and bzaf '
@@ -67,43 +69,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def configure_logger(debug=False):
-    LOG_FORMAT = '%(log_color)s%(message)s'
-    log_level = logging.INFO
-
-    if debug:
-        log_level = logging.DEBUG
-
-    logger.setLevel(log_level)
-
-    logger_formatter = colorlog.ColoredFormatter(
-        LOG_FORMAT,
-        log_colors=dict(
-            DEBUG='blue',
-            INFO='green',
-            WARNING='yellow',
-            ERROR='red',
-            CRITICAL='bold_red,bg_white',
-        )
-    )
-
-    sh = logging.StreamHandler()
-    sh.setFormatter(logger_formatter)
-    logger.addHandler(sh)
-
-
-def prepare_summary(bugs, valid_bugs, auto_verified_bugs, comments):
-    print('*** SUMMARY     ***')
-    print('Queried bugs: {}'.format(bugs))
-    print('Valid bugs: {}'.format(valid_bugs))
-    print('Auto verified bugs: {}'.format(auto_verified_bugs))
-    if comments:
-        print(comments)
-    print('*** SUMMARY END ***')
-
-
-def add_verification_stdout_to_comment(verification_stdout,update_comment):
-
+def add_verification_stdout_to_comment(verification_stdout, update_comment):
     if isinstance(verification_stdout, list):
         update_comment.extend(verification_stdout)
     if isinstance(verification_stdout, str):
@@ -111,189 +77,172 @@ def add_verification_stdout_to_comment(verification_stdout,update_comment):
 
 
 def main():
+    # Parse arguments
+    args = parse_args()
+    # Initi logger
+    bzaf_logger = logger.configure_logger(args.debug)
     # Init variables
+    query_fields = [
+        "id",
+        "status",
+        "resolution",
+        "product",
+        "summary",
+        "reporter",
+        "assigned_to"
+    ]
     valid_bugs = []
     auto_verified_bugs = []
-    auto_verified_comments = []
-    args = parse_args()
-    configure_logger(args.debug)
     bzurl = args.bugzilla
-    fatal = args.fatal
-    if fatal:
-        logger.debug('Any error is FATAL, will quit')
-    else:
-        logger.debug('Will continue if error is not FATAL')
+    private_comment_only = args.private_comments_only
     current_status = args.current_status
     verified_status = args.verified_status
     resolution = args.verified_resolution
-    job_env = args.job_env
-    logger.debug('Set current status to: {}'.format(current_status))
-    logger.debug('Set verified status to: {}'.format(verified_status))
-    logger.debug('Set verified resolution to: {}'.format(resolution))
-    logger.debug('Set job_env list to: {}'.format(job_env))
+    job_env = args.job_env  # Not generic, consider refactor
+    bzaf_logger.debug('Set current status to: {}'.format(current_status))
+    bzaf_logger.debug('Set verified status to: {}'.format(verified_status))
+    bzaf_logger.debug('Set verified resolution to: {}'.format(resolution))
+    bzaf_logger.debug('Set job_env list to: {}'.format(job_env))
 
     # Try to connect to bugzilla XMLRPC API endpoint
     try:
+        bzaf_logger.debug('Bugzilla API URL: {}'.format(bzurl))
         if args.access_api_key:
             bugzilla_instance = bugzilla.Bugzilla(bzurl,
                                                   api_key=args.access_api_key)
         else:
             bugzilla_instance = bugzilla.Bugzilla(bzurl)
-        logger.debug('Bugzilla API URL: {}'.format(bzurl))
     except requests.exceptions.ConnectionError as e:
-        logger.debug("{}".format(e))
-        logger.error('{} is unreachable'.format(bzurl))
-        sys.exit(1)
+        bzaf_logger.debug("{}".format(e))
+        raise exceptions.bzafConnectivityException(bzurl)
     except requests.exceptions.HTTPError as e:
-        logger.debug("{}".format(e))
-        logger.error('Can not connect to {}'.format(bzurl))
-        sys.exit(1)
+        bzaf_logger.debug("{}".format(e))
+        raise exceptions.bzafConnectivityException(bzurl)
     except bugzilla.BugzillaError as e:
-        logger.debug("{}".format(e))
-        logger.error('Bugzilla python bindings error, use --debug')
-        sys.exit(1)
+        bzaf_logger.debug("{}".format(e))
+        raise exceptions.bzafBugzillaAPIError()
 
     # No credentials supplied/cached
     if not bugzilla_instance.logged_in:
-        logger.warning("No cached credentials")
+        bzaf_logger.warning('No cached credentials are present on host, '
+                            'supply API key or use interactive-login')
         # Interactive login - will cache credentials
         if args.interactive_login:
             try:
                 bugzilla_instance.interactive_login()
             except bugzilla.BugzillaError as e:
-                logger.debug("{}".format(e))
-                if fatal:
-                    logger.error('Bugzilla python bindings error, use --debug')
-                    sys.exit(1)
-                else:
-                    logger.warning('Bugzilla python bindings error, '
-                                   'use --debug')
+                raise exceptions.bzafLoginError(e)
         else:
-            if fatal:
-                logger.error("No credentials to auth, quitting")
-                sys.exit(1)
-            else:
-                logger.warning('No credentials to auth, proceeding with '
-                               'limited functionality')
+            raise exceptions.bzafNoCredentials()
 
-    # init bz,bzs or bzlist from query
+    # Init bugs list from input or query
     if args.bzid:
-        bzids = args.bzid or args.bz_query
+        bzids = args.bzid
     elif args.bz_query:
         bzids = args.bz_query
         query = bugzilla_instance.url_to_query(bzids)
-        query["include_fields"] = ["id", "status", "summary", "assigned_to"]
+        query["include_fields"] = query_fields
         # set bzids as an object list containing bug objects
         bzids = bugzilla_instance.query(query)
 
+    # Proceed if received bugs
     if bzids:
-        # Iterate over Bugzilla bugs #
+        # Iterate over Bugzilla bugs
         for bz in bzids:
-            # Attempt to find bug #
+            # Attempt to query bug
             try:
+                # If received bug ID from user, querried bug
                 if args.bzid:
-                    bug = bugzilla_instance.getbug(bz)
+                    bug = bugzilla_instance.getbug(bz,
+                                                   include_fields=query_fields)
+                # Use previously querried bugs if supplied by a query
                 elif args.bz_query:
                     bug = bz
-                logger.debug('BZ #{b} set to {s}'.format(b=bz, s=bug.status))
+                bzaf_logger.debug('BZ #{b} set to {s}'.format(b=bz,
+                                                              s=bug.status))
                 # Check if current bug status equals to status user requested
                 if bug.status != current_status:
-                    if fatal:
-                        logger.error('BZ #{i} status does not match {s}, '
-                                     'quitting'.format(i=bz, s=current_status))
-                        sys.exit(1)
-                    else:
-                        logger.warning('BZ #{i} status does not '
-                                       'match {s}'.format(i=bz,
-                                                          s=current_status))
+                    bzaf_logger.debug('BZ #{i} status does not '
+                                      'match {s}'.format(i=bz,
+                                                         s=current_status))
                 else:
-                    logger.info('BZ #{} is valid'.format(bz))
+                    bzaf_logger.debug('BZ #{} is valid'.format(bz))
                     valid_bugs.append(bug)
             except Exception as e:
-                if fatal:
-                    logger.error('{}, quitting'.format(e))
-                    sys.exit(1)
-                else:
-                    logger.warning('{}, skipping'.format(e))
+                bzaf_logger.debug('Bug #{bi} is not valid, '
+                                  'reason: {err}'.format(bi=bz,
+                                                         err=e))
 
+        # Raise an error if no valid bugs are found
         if not valid_bugs:
-            logger.error("No valid bugs were found, quitting")
-            sys.exit(1)
-        logger.info('Proceeding with the following valid BZs:')
-        logger.info(valid_bugs)
+            raise exceptions.bzafNoValidBugs()
+
+        # Display valid bugs to be querried
+        summary.valid_bugs_table(valid_bugs)
         # Iterate over valid bugs
         for valid_bug in valid_bugs:
             bzaf_found = False
+            print('\nQuery bug #{}'.format(valid_bug.id))
             comments = valid_bug.getcomments()
             # Iterate over comments in reverse order (from last to first)
             for comment in reversed(comments):
-                # security override : skip bz verification if found:
-                if 'bzaf_skip' in comment['text'] and comment["is_private"]:
-                    break
-                # if 'bzaf' in comment and if it's private:
-                if 'bzaf:' in comment['text'] and comment["is_private"]:
+                if private_comment_only:
+                    if not comment['is_private']:
+                        bzaf_logger.error('Can not parse from non private '
+                                          'comment #{}'
+                                          .format(comment['count']))
+                        continue
+                text = comment['text']
+                bzaf_logger.debug('Iterrating over comment #{}'
+                                  .format(comment['count']))
+                # Attempt to validate comment according to BZAF spec
+                bzaf_request = validator.validate_bzaf_yaml(text)
+                if bzaf_request:
+                    print('Valid spec was found')
                     bzaf_found = True
-                    logger.debug(comment)
-                    logger.debug(comment['text'])
+                    break
+
+            # If valid bzaf spec located in comment, attempt to execute it
+            if bzaf_found:
+                # Execute according to bzaf request
+                bzaf_execution = bzaf_request.execute_bzaf_request()
+                # If executed successfully
+                if bzaf_execution:
+                    print('Spec was executed successfully')
+                    update_comment = []
+                    auto_verified_bugs.append(valid_bug)
+                    update_comment.append('All steps completed as '
+                                          'expected\n')
+                    update_comment.append('Verifying bug as {s} {r}\n'
+                                          .format(s=verified_status,
+                                                  r=resolution))
+                    update_comment.append('Verification commands '
+                                          'output:\n')
+                    add_verification_stdout_to_comment(
+                                 bzaf_execution.stdout, update_comment)
+                    update_comment.append('')
+                    update_comment.append('Generated by bzaf {}'.format
+                                          (bzaf.version.__version__))
+                    # Create bug update containing new status and comment
+                    update = (bugzilla_instance.build_update
+                              (status=verified_status,
+                               comment='\n'.join(update_comment),
+                               resolution=resolution))
                     try:
-                        bzaf_spec = yaml.load(comment['text'])
-                        print('bzaf_spec {}'.format(bzaf_spec))
-                        if validator.validate_spec_types(bzaf_spec):
-                            logger.info('BZ #{} Valid bzaf spec '
-                                        'found'.format(valid_bug.id))
-                            # continue only if a match exists between the bzaf
-                            # spec's job_env and the automation job's env
-                            if not validator.validate_job_env(bzaf_spec,
-                                                              job_env, logger):
-                                bzaf_found = False
-
-                    # Temporary fix: failed to locate bzaf spec in comment
+                        bugzilla_instance.update_bugs(valid_bug.id, update)
+                        bzaf_logger.debug('Updated bug #{}'
+                                          .format(valid_bug.id))
                     except Exception as e:
-                        print(e)
-                        sys.exit()
-                else:
-                    logger.debug('discarding {} no valid bzaf '
-                                 'spec'.format(comment))
+                        bzaf_logger.error('Failed to Update bug #{b}\n{e}'
+                                          .format(b=valid_bug.id, e=e))
+                    # Refresh local cache with current bug details
+                    valid_bug.refresh()
 
-                if bzaf_found:
-                    # Execute valid specs
-                    bzaf_execution = validator.execute_spec(bzaf_spec['bzaf'])
-                    if bzaf_execution.execution_sucesfull:
-                        update_comment = []
-                        auto_verified_bugs.append(valid_bug)
-                        update_comment.append('All steps completed as '
-                                              'expected\n')
-                        update_comment.append('Verifying bug as {s} {r}\n'
-                                              .format(s=verified_status,
-                                                      r=resolution))
-                        update_comment.append('Verification commands '
-                                              'output:\n')
-                        add_verification_stdout_to_comment(
-                                     bzaf_execution.stdout, update_comment)
-                        update_comment.append('')
-                        update_comment.append('Generated by bzaf {}'.format
-                                              (bzaf.version.__version__))
-                        # Create bug update containing new status and comment
-                        update = (bugzilla_instance.build_update
-                                  (status=verified_status,
-                                   comment='\n'.join(update_comment),
-                                   resolution=resolution))
-                        try:
-                            bugzilla_instance.update_bugs(valid_bug.id, update)
-                            logger.info('Updated bug {}'.format(valid_bug.id))
-                        except Exception as e:
-                            logger.error('Failed to Update bug #{b}\n{e}'
-                                         .format(b=valid_bug.id, e=e))
-                        # we found our auto verification comment ,
-                        # we can stop recursing over the bz comments
-                        break
-                    else:
-                        logger.error("Failed to verify bug")
-                        break
+            else:
+                print('No valid spec was found')
 
         # Prepare execution summary
-        prepare_summary(len(bzids), len(valid_bugs), len(auto_verified_bugs),
-                        auto_verified_comments)
+        summary.prepare_summary(bzids, valid_bugs, auto_verified_bugs)
 
 
 if __name__ == '__main__':
