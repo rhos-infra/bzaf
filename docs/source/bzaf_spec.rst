@@ -9,7 +9,7 @@ to achieve automatic verification workflow::
 
   bzaf:
     version: <bzaf_version>
-    steps:
+    verification_steps:
       <verification_steps>
 
 Goals of ``bzaf`` spec:

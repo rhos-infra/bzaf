@@ -1,6 +1,10 @@
 pbr == 5.2.0
 python-bugzilla == 2.2.0
-strictyaml == 1.0.1
+prettytable
 colorlog  == 4.0.2
 ansible-runner
 psutil
+pathlib
+jsonschema
+PyYAML
+ansible
