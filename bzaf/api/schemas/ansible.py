@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 """
-Copyright 2020 Vadim Khitrin <me@vkhitrin.com>
+Copyright 2019 Vadim Khitrin <me@vkhitrin.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -13,15 +14,17 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-
-import setuptools
-import sys
-
-# Allow only Python3
-if sys.version_info[0] != 3:
-    print("bzaf requires Python 3.x to build")
-    sys.exit(1)
-
-setuptools.setup(
-    setup_requires=['pbr'],
-    pbr=True)
+# TODO(vkhitirn): Enhance backend schema to support additional feature such
+#                 as inventory
+schema = {
+    "type": "object",
+    "required": [
+        "playbook",
+    ],
+    "properties": {
+        "playbook": {
+            "type": "array"
+        }
+    },
+    "additionalProperties": False
+}

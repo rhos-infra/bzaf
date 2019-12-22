@@ -1,6 +1,12 @@
-pbr == 5.2.0
-python-bugzilla == 2.2.0
-strictyaml == 1.0.1
-colorlog  == 4.0.2
-ansible-runner
-psutil
+pbr==5.4.4
+python-bugzilla==2.3.0
+prettytable==0.7.2
+# For Ansible, as of now we follow https://github.com/redhat-openstack/infrared/blob/master/requirements.txt
+ansible>=2.7.13,<2.8.0
+ansible-runner==1.4.4
+psutil==5.7.0
+pathlib==1.0.1
+jsonschema==3.2.0
+PyYAML==5.3
+iteration_utilities==0.10.1
+ruamel.yaml==0.16.10

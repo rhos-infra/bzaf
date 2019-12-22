@@ -17,4 +17,4 @@ limitations under the License.
 
 import pbr.version
 
-__version__ = pbr.version.VersionInfo('bzaf').version_string()
+__version__ = pbr.version.VersionInfo('bzaf').version_string_with_vcs()
