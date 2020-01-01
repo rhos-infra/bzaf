@@ -7,10 +7,33 @@ bzaf Spec
 ``bzaf`` spec is a YAML based input that is used by the tool
 to achieve automatic verification workflow::
 
-  bzaf:
-    version: <bzaf_version>
-    steps:
-      <verification_steps>
+    With Shell backend:
+
+    bzaf:
+     version: 1
+     job_env: pidone,3cont_2comp,$product_version?
+     steps:
+      backend: 'shell'
+      cmd: 'rpm_compare resource-agents-4.1.1-33.el8.x86_64'
+      name: first step
+      rc: 0
+
+    With Ansible backend:
+
+      bzaf:
+      version: 1
+      job_env: 'pidone,3cont_2comp,$product_version?'
+      steps:
+        backend: 'ansible'
+        playbook:
+         - hosts: controller
+           become: true
+           tasks:
+             - name: check_pacemaker rpm
+               shell: |
+                   rpm_compare pacemaker-2.0.2-3.el8.x86_64
+        name: first step
+        rc: 0
 
 Goals of ``bzaf`` spec:
 
