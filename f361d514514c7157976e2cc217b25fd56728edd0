@@ -134,6 +134,29 @@
     },
     {
       "key": {
+        "uuid": "6b6d1f9f_476350f5",
+        "filename": "bzaf/utils/bugzilla.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T11:39:14Z",
+      "side": 1,
+      "message": "Bzaf should only try to verify the last bzaf comment , I think this is crucial in it\u0027s logic\n, so that we won\u0027t get in to recursive loops.\nSo I would like you to add a break at the end of this if : \nif bzaf_execution:\n [..]\nelse:\n  #only try to verify the latest comment\n  break",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 35
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24cad598_9e243f60",
         "filename": "docs/source/_static/example_backend.py",
         "patchSetId": 6
