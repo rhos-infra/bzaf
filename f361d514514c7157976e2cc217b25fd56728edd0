@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3866927b_1c0d67b1",
+        "filename": ".gitreview",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T09:02:34Z",
+      "side": 1,
+      "message": "what does this mean ? \nthat we are switching to committing on devel branch from now on ?",
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4823d0_9abda194",
+        "filename": "bzaf/api/backends/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T09:02:34Z",
+      "side": 1,
+      "message": "why do we need a mock step set as default here ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f180481a_68cd397c",
+        "filename": "bzaf/api/backends/shell.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T09:02:34Z",
+      "side": 1,
+      "message": "why do we need a mock step set as default here ?",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5525e210_207b9a22",
+        "filename": "bzaf/api/schemas/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T09:02:34Z",
+      "side": 1,
+      "message": "why no required: \"rc\" here ? \nare we setting ansible backend rc default to \"0\" ? then ?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "33c086a3_9a06e516",
+        "filename": "bzaf/api/schemas/bzaf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T09:02:34Z",
+      "side": 1,
+      "message": "what about requiring \"job_env\" ?\nthat is the basic validation of the bug being relevant...",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 7
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "615f5fdf_83857d17",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T09:02:34Z",
+      "side": 1,
+      "message": "Hell no..:)\nNO way we are exposing the api key this easily , please remove this, \nthe initial intention is that users will use their own api key for starters , and it will be in the jenkins repo - that\u0027s bad enough... no need to leak it here :)",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 66
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
