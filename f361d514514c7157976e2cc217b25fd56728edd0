@@ -263,6 +263,75 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f2699f05_c9bec0c3",
+        "filename": "docs/source/quickstart.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T11:17:16Z",
+      "side": 1,
+      "message": "please remove this",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 38
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "13a3b1ec_d50c6c1c",
+        "filename": "infrared/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T11:17:16Z",
+      "side": 1,
+      "message": "please remove this",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d32738a_990d51e7",
+        "filename": "plugin.spec",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T11:17:16Z",
+      "side": 1,
+      "message": "please remove this",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
