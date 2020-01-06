@@ -19,6 +19,29 @@
     },
     {
       "key": {
+        "uuid": "5f437d8b_bd294ad2",
+        "filename": "bzaf/api/api_request.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T12:04:23Z",
+      "side": 1,
+      "message": "currently this hangs in testing , so maybe drop multiple steps for now ? \n   -\u003e if so you\u0027ll have to change the docs examples also (but not the spec parameters, verification_steps: is still valid)\n\nthis breaks on : \n\ntest 2) fail, got stuck\n    bzaf:\n      version: 1\n      verification_steps:\n        - name: Check existence of command\n          backend: shell\n          cmd: which openstack\n          rc: 0\n        - name: Execute command\n          backend: shell\n          cmd:  openstack\n          rc: 0",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a4823d0_9abda194",
         "filename": "bzaf/api/backends/ansible.py",
         "patchSetId": 6
