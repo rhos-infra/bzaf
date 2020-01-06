@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "88dd586d_ed00240c",
+        "filename": "docs/source/index.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 0,
+      "message": "I would like to add in this section a openstack_bzaf_tools.srt\nwhich will contain : \nOpenstack bzaf tools via the Infrared Plugin:\n\nrpm_compare tool:\nbzaf add ability to check if the package in \"fixed in version\" is newer or older\nthan the current package , thus checking if the fixed code is deployed on the build.\nusage example : \n- rpm_compare pacemaker-2.0.2-3.el8.x86_64\n- podman exec -it  `podman ps -f name\u003drabbitmq-bundle -q` sh -c \"rpm_compare erlang-kernel-21.3.8.3-1.el8ost\"\n\nrpm_compare will return 0 if the package in the build is newer , 1 (stderr) if it\u0027s not.\n\nVia the Infrared plugin ,rpm_compare is deployed on all overcloud nodes and their containers.",
+      "revId": "b9ff58ef51eaff4f6d8ee1936bdc2f9eeef0671b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48632fb5_63f65165",
+        "filename": "docs/source/working_with_bzaf.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 0,
+      "message": "I prefer to use this here with real examples : \nhttps://bzaf.readthedocs.io/en/latest/bzaf_spec.html\nbzaf Spec\n\nbzaf spec is a YAML based input that is used by the tool to achieve automatic verification workflow:\n\nWith Shell backend:\n\nbzaf:\n version: 1\n job_env: pidone,3cont_2comp,$product_version?\n steps:\n  backend: \u0027shell\u0027\n  cmd: \u0027rpm_compare resource-agents-4.1.1-33.el8.x86_64\u0027\n  name: first step\n  rc: 0\n\nWith Ansible backend:\n\n  bzaf:\n  version: 1\n  job_env: \u0027pidone,3cont_2comp,$product_version?\u0027\n  steps:\n    backend: \u0027ansible\u0027\n    playbook:\n     - hosts: controller\n       become: true\n       tasks:\n         - name: check_pacemaker rpm\n           shell: |\n               rpm_compare pacemaker-2.0.2-3.el8.x86_64\n    name: first step\n    rc: 0",
+      "revId": "b9ff58ef51eaff4f6d8ee1936bdc2f9eeef0671b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

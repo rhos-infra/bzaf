@@ -131,6 +131,138 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24cad598_9e243f60",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 1,
+      "message": "Cannot find reference \u0027example\u0027 in \u0027__init__.py\u0027 \nno example.py in api.schemas",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "924655f2_ad4880aa",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 1,
+      "message": "you need import subprocess for this",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6b19464_8706eff7",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 1,
+      "message": "you need : \nfrom collections import namedtuple\nfor this",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e248e57_3487b7b4",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 1,
+      "message": "no job_env here ?",
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "093fb111_e71141d6",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 1,
+      "message": "no job_env here ?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ca2182a_79a8b3a4",
+        "filename": "docs/source/index.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-01-06T10:54:37Z",
+      "side": 1,
+      "message": "what about adding here the \"how bzaf works ? \"\nfrom : https://bzaf.readthedocs.io/en/latest/working_with_bzaf.html\n\n\nHow Bzaf Works\n\nBzaf flow:\n\n    Access an bugzilla instance by api key\n\n    recurse over bz query bugs (or get a single bz):\n\n            in each bz recurse the comments from last to first:\n\n                    if a valid bzaf spec is found and is in a private comment:\n\n                            try to match “job_env:” (bz comment) parameter list with the supplied --job-env (bzaf cli command):\n\n                                    if there is a match, execute the bzaf spec’s commands via the specified backend:\n\n                                            if the execution is succesfull (matches the spec’s rc code (“rc:0” ):\n                                                    verify the bz and put a comment with the commands’ execution output.\n\nCaveats :\n\n    bzaf spec comments must be private.\n    only the last bzaf spec comment will be checked in each bz.\n    to block bzaf from recursing a bz’s comments , you can leave the string “bzaf_skip” in a private comment.\n    bzaf fails and errors are not commented in the bz , only successful runs. (spec validation and commands failures or rc mismatch will not be commented in the bz)\n\nExample BZ verified by bzaf and the CI: https://bugzilla.redhat.com/show_bug.cgi?id\u003d1719185#c6",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
