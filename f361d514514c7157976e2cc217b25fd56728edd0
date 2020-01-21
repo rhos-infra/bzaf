@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "f0676d64_62b82cc3",
+        "filename": ".gitreview",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Yes.\n\nmaster branch will become the stable branch that we\u0027ll encourage people/CI to use.\ndevel branch will be all the latest changes.",
+      "parentUuid": "3866927b_1c0d67b1",
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5f437d8b_bd294ad2",
         "filename": "bzaf/api/api_request.py",
         "patchSetId": 6
@@ -30,6 +48,30 @@
       "writtenOn": "2020-01-06T12:04:23Z",
       "side": 1,
       "message": "currently this hangs in testing , so maybe drop multiple steps for now ? \n   -\u003e if so you\u0027ll have to change the docs examples also (but not the spec parameters, verification_steps: is still valid)\n\nthis breaks on : \n\ntest 2) fail, got stuck\n    bzaf:\n      version: 1\n      verification_steps:\n        - name: Check existence of command\n          backend: shell\n          cmd: which openstack\n          rc: 0\n        - name: Execute command\n          backend: shell\n          cmd:  openstack\n          rc: 0",
+      "range": {
+        "startLine": 100,
+        "startChar": 2,
+        "endLine": 111,
+        "endChar": 31
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5b43ed6_840541c7",
+        "filename": "bzaf/api/api_request.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "I did not have any issues on macOS, I\u0027ll retry to execute this from linux host again.\n\nThanks!",
+      "parentUuid": "5f437d8b_bd294ad2",
       "range": {
         "startLine": 100,
         "startChar": 2,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "6c6f8afa_261bf856",
+        "filename": "bzaf/api/backends/__init__.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Microversions are versions that are independent from bzaf itself.\nEach plugin should/will expose options based on micro version.\n\nI would like us to try and imitate https://docs.openstack.org/nova/rocky/contributor/microversions.html",
+      "parentUuid": "910fd576_af1198b3",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 3
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5a4823d0_9abda194",
         "filename": "bzaf/api/backends/ansible.py",
         "patchSetId": 6
@@ -76,6 +142,30 @@
       "writtenOn": "2020-01-06T09:02:34Z",
       "side": 1,
       "message": "why do we need a mock step set as default here ?",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "258e88d2_30923e80",
+        "filename": "bzaf/api/backends/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Because currently, when executing bzaf.api.backends.import_backends, it initialises a dummy instance of Ansible backend in order to check if it\u0027s a valid backend.\n\nAs far as I remember, if I did not have a mock step, the backend will fail verification and will not be exposed.\n\nIt is something that probably should be looked at later on.",
+      "parentUuid": "5a4823d0_9abda194",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "88d72731_d46f6b5f",
+        "filename": "bzaf/api/backends/shell.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Because currently, when executing bzaf.api.backends.import_backends, it initialises a dummy instance of Ansible backend in order to check if it\u0027s a valid backend.\n\nAs far as I remember, if I did not have a mock step, the backend will fail verification and will not be exposed.\n\nIt is something that probably should be looked at later on.",
+      "parentUuid": "f180481a_68cd397c",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5525e210_207b9a22",
         "filename": "bzaf/api/schemas/ansible.py",
         "patchSetId": 6
@@ -122,6 +236,30 @@
       "writtenOn": "2020-01-06T09:02:34Z",
       "side": 1,
       "message": "why no required: \"rc\" here ? \nare we setting ansible backend rc default to \"0\" ? then ?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c73b3d38_527a0974",
+        "filename": "bzaf/api/schemas/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "In my opinion, we should not expect a rc from Ansible.\n\nIf ansible succeeds it\u0027ll be 0, if Ansible fails it\u0027ll be a consistent return code.\nWe should not worry about it from operating system point of view.\n\nIf advanced error handling is required, this can be achieved inside the Ansible playbook.",
+      "parentUuid": "5525e210_207b9a22",
       "range": {
         "startLine": 21,
         "startChar": 0,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "ee7ebc2d_a19b6fde",
+        "filename": "bzaf/api/schemas/bzaf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "I personally would like to move that logic out of spec.\n\njob_env is not generic enough, it is a solution that suits us that might complicate things for other.\nOther people/teams might have a different approach.\n\njob_env can be used by us but it\u0027ll have to come as something that is not a must for others.\nCurrently, I think that you can still pass it in CLI and meanwhile perhaps we can create a logic in Jenkins for that?",
+      "parentUuid": "33c086a3_9a06e516",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 7
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "615f5fdf_83857d17",
         "filename": "bzaf/cli.py",
         "patchSetId": 6
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "81677565_5149d26b",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Okay, fair enough.\nRemoving this.",
+      "parentUuid": "615f5fdf_83857d17",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 66
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b6d1f9f_476350f5",
         "filename": "bzaf/utils/bugzilla.py",
         "patchSetId": 6
@@ -191,6 +377,30 @@
       "writtenOn": "2020-01-06T11:39:14Z",
       "side": 1,
       "message": "Bzaf should only try to verify the last bzaf comment , I think this is crucial in it\u0027s logic\n, so that we won\u0027t get in to recursive loops.\nSo I would like you to add a break at the end of this if : \nif bzaf_execution:\n [..]\nelse:\n  #only try to verify the latest comment\n  break",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 35
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dc49f95e_674c765b",
+        "filename": "bzaf/utils/bugzilla.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Not in all scenarios the last comment will be a comment with spec.\nImagine you typing a spec and someone replies to previous comments. In this scenario you shouldn\u0027t repost your comment with a spec.\n\nThis code should find the first spec (starting from last comment) and only execute it.",
+      "parentUuid": "6b6d1f9f_476350f5",
       "range": {
         "startLine": 202,
         "startChar": 0,
@@ -226,6 +436,30 @@
     },
     {
       "key": {
+        "uuid": "e7a3a519_aa2165ff",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Ohhh, this is a static file that will be displayed as text in the \"developing custom backend section\".\n\nThere is no point in packaging an example plugin in backends.",
+      "parentUuid": "24cad598_9e243f60",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "924655f2_ad4880aa",
         "filename": "docs/source/_static/example_backend.py",
         "patchSetId": 6
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "229d129b_ad229c5c",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Thank you, will correct this.",
+      "parentUuid": "924655f2_ad4880aa",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d6b19464_8706eff7",
         "filename": "docs/source/_static/example_backend.py",
         "patchSetId": 6
@@ -269,6 +527,30 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86085abc_8cb7bd7f",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Thank you, will correct this.",
+      "parentUuid": "d6b19464_8706eff7",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -312,6 +594,54 @@
     },
     {
       "key": {
+        "uuid": "3e37f1dc_9d0d936e",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "I personally would like to move that logic out of spec.\n\njob_env is not generic enough, it is a solution that suits us that might complicate things for other.\nOther people/teams might have a different approach.\n\njob_env can be used by us but it\u0027ll have to come as something that is not a must for others.\nCurrently, I think that you can still pass it in CLI and meanwhile perhaps we can create a logic in Jenkins for that?",
+      "parentUuid": "093fb111_e71141d6",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c7ec5f65_4b8e0102",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "I personally would like to move that logic out of spec.\n\njob_env is not generic enough, it is a solution that suits us that might complicate things for other.\nOther people/teams might have a different approach.\n\njob_env can be used by us but it\u0027ll have to come as something that is not a must for others.\nCurrently, I think that you can still pass it in CLI and meanwhile perhaps we can create a logic in Jenkins for that?",
+      "parentUuid": "093fb111_e71141d6",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a750ec8_a5f04a33",
         "filename": "docs/source/ansible_backend.rst",
         "patchSetId": 6
@@ -323,6 +653,30 @@
       "writtenOn": "2020-01-07T22:40:25Z",
       "side": 1,
       "message": "this (multiple tasks in playbook) currently does not get reported in the bz correctly , so I would suggest to drop it for now or apply a fix ?",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a13efae9_d1381d4d",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "I think that we should leave it as is now, write a disclaimer that it is currently not reported correctly and work on this in a separate patch.",
+      "parentUuid": "7a750ec8_a5f04a33",
       "range": {
         "startLine": 46,
         "startChar": 5,
@@ -358,6 +712,30 @@
     },
     {
       "key": {
+        "uuid": "7b10c914_2392bfa4",
+        "filename": "docs/source/index.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Hi,\n\nI reworded some of the documentation and a similar thing should be under \u0027quickstart.rst\u0027.\n\nRegarding a real world example and how RHOS-QE will use job_env perhaps should be mentioned in a separate page?",
+      "parentUuid": "2ca2182a_79a8b3a4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f2699f05_c9bec0c3",
         "filename": "docs/source/quickstart.rst",
         "patchSetId": 6
@@ -378,6 +756,30 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f1a4152_cfabad14",
+        "filename": "docs/source/quickstart.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Thank you, will correct this.",
+      "parentUuid": "f2699f05_c9bec0c3",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 38
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -404,6 +806,30 @@
     },
     {
       "key": {
+        "uuid": "2acdb7fc_218b2246",
+        "filename": "infrared/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Thank you will correct this.",
+      "parentUuid": "13a3b1ec_d50c6c1c",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d32738a_990d51e7",
         "filename": "plugin.spec",
         "patchSetId": 6
@@ -424,6 +850,30 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "068ab346_29825c15",
+        "filename": "plugin.spec",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 1,
+      "message": "Thank you will correct this.",
+      "parentUuid": "9d32738a_990d51e7",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }

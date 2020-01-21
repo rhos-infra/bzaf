@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "56670f45_10cbe784",
+        "filename": "docs/source/index.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 0,
+      "message": "This is something unique to infrared right?\n\nWe can create a document in a separate patch, this patch is already has too many changes 😞",
+      "parentUuid": "88dd586d_ed00240c",
+      "revId": "b9ff58ef51eaff4f6d8ee1936bdc2f9eeef0671b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "48632fb5_63f65165",
         "filename": "docs/source/working_with_bzaf.rst",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2020-01-06T10:54:37Z",
       "side": 0,
       "message": "I prefer to use this here with real examples : \nhttps://bzaf.readthedocs.io/en/latest/bzaf_spec.html\nbzaf Spec\n\nbzaf spec is a YAML based input that is used by the tool to achieve automatic verification workflow:\n\nWith Shell backend:\n\nbzaf:\n version: 1\n job_env: pidone,3cont_2comp,$product_version?\n steps:\n  backend: \u0027shell\u0027\n  cmd: \u0027rpm_compare resource-agents-4.1.1-33.el8.x86_64\u0027\n  name: first step\n  rc: 0\n\nWith Ansible backend:\n\n  bzaf:\n  version: 1\n  job_env: \u0027pidone,3cont_2comp,$product_version?\u0027\n  steps:\n    backend: \u0027ansible\u0027\n    playbook:\n     - hosts: controller\n       become: true\n       tasks:\n         - name: check_pacemaker rpm\n           shell: |\n               rpm_compare pacemaker-2.0.2-3.el8.x86_64\n    name: first step\n    rc: 0",
+      "revId": "b9ff58ef51eaff4f6d8ee1936bdc2f9eeef0671b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71d7159a_bde3c79d",
+        "filename": "docs/source/working_with_bzaf.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-01-21T06:54:11Z",
+      "side": 0,
+      "message": "There should be a page for each backend in docs/source, for example:\ndocs/source/shell_backend.rst\ndocs/source/ansible_backend.rst\n\nThey all contain examples.\n\nIs it good enough?",
+      "parentUuid": "48632fb5_63f65165",
       "revId": "b9ff58ef51eaff4f6d8ee1936bdc2f9eeef0671b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
