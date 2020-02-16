@@ -61,15 +61,17 @@ def run(step_playbook):
                                         playbook_run.stats['failures'])
     return execution_result
 
+
 def ansi_escaped(string):
-     ansi_escape = re.compile(r''' 
-     \x1B    # ESC   
-     [@-_]   # 7-bit C1 Fe 
-     [0-?]*  # Parameter bytes 
-     [ -/]*  # Intermediate bytes 
-     [@-~]   # Final byte 
- ''', re.VERBOSE)
-     return ansi_escape.sub('', string)
+    ansi_escape = re.compile(r'''
+    \x1B    # ESC
+    [@-_]   # 7-bit C1 Fe
+    [0-?]*  # Parameter bytes
+    [ -/]*  # Intermediate bytes
+    [@-~]   # Final byte
+    ''', re.VERBOSE)
+    return ansi_escape.sub('', string)
+
 
 def fix_ansi_list(list_to_fix):
-    return list(map(ansi_escaped,list_to_fix))
+    return list(map(ansi_escaped, list_to_fix))
