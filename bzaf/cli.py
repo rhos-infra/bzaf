@@ -20,6 +20,7 @@ import argparse
 import bugzilla
 import bzaf.version
 from bzaf.api import validator
+from datetime import datetime
 import requests
 import logging
 import colorlog
@@ -91,6 +92,21 @@ def configure_logger(debug=False):
     sh.setFormatter(logger_formatter)
     logger.addHandler(sh)
 
+
+def get_time_stamp():
+    now = datetime.now()
+    return now.strftime("%m%d%Y%H%M")
+
+
+def write_failures_to_file(content):
+    """ write failures to file to be an attachment
+    content: failure lines list to write to a file
+    (ansible output)"""
+    outfile = '/tmp/verification_stderr.txt'
+    with open(outfile, 'w') as ansible_outfile:
+        ansible_outfile.writelines(content)
+    ansible_outfile.close()
+    return outfile
 
 def prepare_summary(bugs, valid_bugs, auto_verified_bugs, comments):
     print('*** SUMMARY     ***')
@@ -289,6 +305,26 @@ def main():
                         break
                     else:
                         logger.error("Failed to verify bug")
+                        attach_file = write_failures_to_file(
+                                                    bzaf_execution.stdout)
+                        attach_file_name = 'bzaf_auto_verification_failure_{}'\
+                            .format(get_time_stamp())
+                        fail_comment = 'Bzaf auto verification failed, ' \
+                                       'run log attached as ' \
+                                       'bzaf_auto_verification_failure file'
+                        try:
+                            bugzilla_instance.attachfile(valid_bug.id,
+                                                         attach_file,
+                                                         attach_file_name,
+                                                         comment=fail_comment,
+                                                         is_private=True,
+                                                         content_type=
+                                                         'text/plain')
+                        except Exception as e:
+                            logger.error('Failed to Update bug #{b}\n{e}'
+                                         .format(b=valid_bug.id, e=e))
+                        # we found our auto verification comment ,
+                        # we can stop recursing over the bz comments
                         break
 
         # Prepare execution summary
