@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "cfda0336_285e072b",
+        "filename": ".gitreview",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0676d64_62b82cc3",
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5f437d8b_bd294ad2",
         "filename": "bzaf/api/api_request.py",
         "patchSetId": 6
@@ -131,6 +149,30 @@
     },
     {
       "key": {
+        "uuid": "78bd631d_9909610c",
+        "filename": "bzaf/api/backends/__init__.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6c6f8afa_261bf856",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 3
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a4823d0_9abda194",
         "filename": "bzaf/api/backends/ansible.py",
         "patchSetId": 6
@@ -166,6 +208,30 @@
       "side": 1,
       "message": "Because currently, when executing bzaf.api.backends.import_backends, it initialises a dummy instance of Ansible backend in order to check if it\u0027s a valid backend.\n\nAs far as I remember, if I did not have a mock step, the backend will fail verification and will not be exposed.\n\nIt is something that probably should be looked at later on.",
       "parentUuid": "5a4823d0_9abda194",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba929158_d4cdf6fa",
+        "filename": "bzaf/api/backends/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "huh ? later...",
+      "parentUuid": "258e88d2_30923e80",
       "range": {
         "startLine": 70,
         "startChar": 0,
@@ -225,6 +291,30 @@
     },
     {
       "key": {
+        "uuid": "053b50b9_6e2942df",
+        "filename": "bzaf/api/backends/shell.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "huh ? ...later...",
+      "parentUuid": "88d72731_d46f6b5f",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5525e210_207b9a22",
         "filename": "bzaf/api/schemas/ansible.py",
         "patchSetId": 6
@@ -272,6 +362,30 @@
     },
     {
       "key": {
+        "uuid": "ab2c181b_067f56ca",
+        "filename": "bzaf/api/schemas/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c73b3d38_527a0974",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "33c086a3_9a06e516",
         "filename": "bzaf/api/schemas/bzaf.py",
         "patchSetId": 6
@@ -307,6 +421,30 @@
       "side": 1,
       "message": "I personally would like to move that logic out of spec.\n\njob_env is not generic enough, it is a solution that suits us that might complicate things for other.\nOther people/teams might have a different approach.\n\njob_env can be used by us but it\u0027ll have to come as something that is not a must for others.\nCurrently, I think that you can still pass it in CLI and meanwhile perhaps we can create a logic in Jenkins for that?",
       "parentUuid": "33c086a3_9a06e516",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 7
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ceefca60_4273ee30",
+        "filename": "bzaf/api/schemas/bzaf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "since the majority of jobs are jenkins centric and they follow the same naming as OSP , I would like to preserve it until we are stable across other products ..in he future",
+      "parentUuid": "ee7ebc2d_a19b6fde",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -366,6 +504,30 @@
     },
     {
       "key": {
+        "uuid": "75b4c605_ebb084f0",
+        "filename": "bzaf/cli.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "81677565_5149d26b",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 66
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6b6d1f9f_476350f5",
         "filename": "bzaf/utils/bugzilla.py",
         "patchSetId": 6
@@ -401,6 +563,30 @@
       "side": 1,
       "message": "Not in all scenarios the last comment will be a comment with spec.\nImagine you typing a spec and someone replies to previous comments. In this scenario you shouldn\u0027t repost your comment with a spec.\n\nThis code should find the first spec (starting from last comment) and only execute it.",
       "parentUuid": "6b6d1f9f_476350f5",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 35
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a29f5b12_301db69a",
+        "filename": "bzaf/utils/bugzilla.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "\"his code should find the first spec (starting from last comment) and only execute it.\"\nthat\u0027s what this \"break\" is for , it breaks after the first bzaf spec , not matter how many regular comments are after it, so it\u0027s actually needed by what you said 😎",
+      "parentUuid": "dc49f95e_674c765b",
       "range": {
         "startLine": 202,
         "startChar": 0,
@@ -460,6 +646,54 @@
     },
     {
       "key": {
+        "uuid": "d8d0aa07_7967097e",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack, we should probably add a lint ignore on that line :  # noqa: Esomething",
+      "parentUuid": "e7a3a519_aa2165ff",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dddc9a37_a71f544e",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack , we should add a lint escape for that -\u003e # noqa: ESomething",
+      "parentUuid": "e7a3a519_aa2165ff",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "924655f2_ad4880aa",
         "filename": "docs/source/_static/example_backend.py",
         "patchSetId": 6
@@ -495,6 +729,54 @@
       "side": 1,
       "message": "Thank you, will correct this.",
       "parentUuid": "924655f2_ad4880aa",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f4b1a7ce_28274055",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "229d129b_ad229c5c",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "66e5f533_5bb54928",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "229d129b_ad229c5c",
       "range": {
         "startLine": 49,
         "startChar": 0,
@@ -554,6 +836,54 @@
     },
     {
       "key": {
+        "uuid": "2cf14e92_21ad90ba",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86085abc_8cb7bd7f",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "844848d9_b56325b5",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86085abc_8cb7bd7f",
+      "range": {
+        "startLine": 72,
+        "startChar": 27,
+        "endLine": 72,
+        "endChar": 37
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e248e57_3487b7b4",
         "filename": "docs/source/ansible_backend.rst",
         "patchSetId": 6
@@ -568,6 +898,24 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc92f6d0_4955335c",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8e248e57_3487b7b4",
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -642,6 +990,30 @@
     },
     {
       "key": {
+        "uuid": "2b70f313_cf4726a8",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "since the majority of jobs in rhel are jenkins centric and they follow the same naming as OSP , I would like to preserve it until we are stable across other products ..in the future",
+      "parentUuid": "c7ec5f65_4b8e0102",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a750ec8_a5f04a33",
         "filename": "docs/source/ansible_backend.rst",
         "patchSetId": 6
@@ -689,6 +1061,30 @@
     },
     {
       "key": {
+        "uuid": "8b214e9f_07c91dff",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a13efae9_d1381d4d",
+      "range": {
+        "startLine": 46,
+        "startChar": 5,
+        "endLine": 52,
+        "endChar": 27
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2ca2182a_79a8b3a4",
         "filename": "docs/source/index.rst",
         "patchSetId": 6
@@ -724,6 +1120,30 @@
       "side": 1,
       "message": "Hi,\n\nI reworded some of the documentation and a similar thing should be under \u0027quickstart.rst\u0027.\n\nRegarding a real world example and how RHOS-QE will use job_env perhaps should be mentioned in a separate page?",
       "parentUuid": "2ca2182a_79a8b3a4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a83b09_56c25939",
+        "filename": "docs/source/index.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "ack , but the job_env should be a part of bzaf\u0027s automation and not abstracted , since all of redhat will be new to the concept , so I prefer to leave it as is and change it when the demand for change will come from the people using Bzaf",
+      "parentUuid": "7b10c914_2392bfa4",
       "range": {
         "startLine": 18,
         "startChar": 0,
@@ -783,6 +1203,54 @@
     },
     {
       "key": {
+        "uuid": "5d4b436b_1731f248",
+        "filename": "docs/source/quickstart.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6f1a4152_cfabad14",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 38
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "38209b77_703a7c8c",
+        "filename": "docs/source/quickstart.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6f1a4152_cfabad14",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 38
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "13a3b1ec_d50c6c1c",
         "filename": "infrared/README.md",
         "patchSetId": 6
@@ -830,6 +1298,54 @@
     },
     {
       "key": {
+        "uuid": "e0e91d6e_71979be5",
+        "filename": "infrared/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2acdb7fc_218b2246",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b4b35b4f_2c5cd93b",
+        "filename": "infrared/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2acdb7fc_218b2246",
+      "range": {
+        "startLine": 12,
+        "startChar": 46,
+        "endLine": 12,
+        "endChar": 51
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9d32738a_990d51e7",
         "filename": "plugin.spec",
         "patchSetId": 6
@@ -865,6 +1381,54 @@
       "side": 1,
       "message": "Thank you will correct this.",
       "parentUuid": "9d32738a_990d51e7",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c13ac948_6dfdbd49",
+        "filename": "plugin.spec",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "068ab346_29825c15",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "209e452c_5c6a5c74",
+        "filename": "plugin.spec",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-17T14:00:10Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "068ab346_29825c15",
       "range": {
         "startLine": 19,
         "startChar": 56,
