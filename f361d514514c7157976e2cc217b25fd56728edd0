@@ -244,6 +244,30 @@
     },
     {
       "key": {
+        "uuid": "a301ce66_da7fb551",
+        "filename": "bzaf/api/backends/ansible.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba929158_d4cdf6fa",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f180481a_68cd397c",
         "filename": "bzaf/api/backends/shell.py",
         "patchSetId": 6
@@ -312,6 +336,30 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a85501e_06844b0d",
+        "filename": "bzaf/api/backends/shell.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "053b50b9_6e2942df",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -445,6 +493,30 @@
       "side": 1,
       "message": "since the majority of jobs are jenkins centric and they follow the same naming as OSP , I would like to preserve it until we are stable across other products ..in he future",
       "parentUuid": "ee7ebc2d_a19b6fde",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 7
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45cda293_7d0c0cf2",
+        "filename": "bzaf/api/schemas/bzaf.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "we\u0027ll leave job_env as required for now, we can add an option job_env\u003d\u0027job_env_all\u0027 for debugging",
+      "parentUuid": "ceefca60_4273ee30",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -599,6 +671,30 @@
     },
     {
       "key": {
+        "uuid": "9ecc5615_db3e7d00",
+        "filename": "bzaf/utils/bugzilla.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "see trelllo https://trello.com/c/BoaGNgYm/14-refactor-bzaf",
+      "parentUuid": "a29f5b12_301db69a",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 231,
+        "endChar": 35
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "24cad598_9e243f60",
         "filename": "docs/source/_static/example_backend.py",
         "patchSetId": 6
@@ -691,6 +787,30 @@
       "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf00d55f_b8096ac8",
+        "filename": "docs/source/_static/example_backend.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "exclude the dir",
+      "parentUuid": "dddc9a37_a71f544e",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     },
     {
       "key": {
@@ -1014,6 +1134,30 @@
     },
     {
       "key": {
+        "uuid": "122eac7c_71f73ee3",
+        "filename": "docs/source/ansible_backend.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "update docs to include job_env",
+      "parentUuid": "2b70f313_cf4726a8",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 41
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7a750ec8_a5f04a33",
         "filename": "docs/source/ansible_backend.rst",
         "patchSetId": 6
@@ -1144,6 +1288,30 @@
       "side": 1,
       "message": "ack , but the job_env should be a part of bzaf\u0027s automation and not abstracted , since all of redhat will be new to the concept , so I prefer to leave it as is and change it when the demand for change will come from the people using Bzaf",
       "parentUuid": "7b10c914_2392bfa4",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 1
+      },
+      "revId": "f361d514514c7157976e2cc217b25fd56728edd0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5da87df5_9370d64c",
+        "filename": "docs/source/index.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1012952
+      },
+      "writtenOn": "2020-02-24T12:54:51Z",
+      "side": 1,
+      "message": "update docs to include job_env",
+      "parentUuid": "e4a83b09_56c25939",
       "range": {
         "startLine": 18,
         "startChar": 0,
