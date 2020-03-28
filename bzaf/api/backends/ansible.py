@@ -183,5 +183,5 @@ class AnsibleBackend(BaseBackend):
             stdout = fix_ansi_list(playbook_run.stdout.readlines())
             execution_result = execution_result(execution_successful,
                                                 playbook_run.rc, stdout,
-                                                playbook_run.stats['failures'])
+                                                stdout)
         return execution_result
