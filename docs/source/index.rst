@@ -7,6 +7,12 @@ About bzaf
 ``bzaf``'s main goal is to provide a robust auto verification workflow while
 focusing on ease-of-use and simplicity.
 
+``bzaf`` operates by executing auto-verification commands found in a bugzilla
+comment to try to verify the said bz.
+
+``bzaf's`` power comes into play when integrated into CI environments, to
+create an auto-verification cycle.
+
 .. toctree::
    :maxdepth: 1
    :caption: Installing
