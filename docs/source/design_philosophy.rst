@@ -14,6 +14,25 @@ verify (set bug state as ‘VERIFIED’) relevant bugs.
 Auto Verification Workflow
 ==========================
 
+Bzaf flow example:
+==========================
+
+- Access an bugzilla instance by api key
+- recurse over bz query bugs (or get a single bz):
+    - in each bz recurse the comments from last to first:
+        - if a valid bzaf spec is found and is in a private comment:
+            - try to match "job_env:" (bz comment) parameter list with the supplied ``--job-env`` (bzaf cli command):
+                - if there is a match, execute the bzaf spec's commands via the specified backend:
+                    - if the execution is succesfull (matches the spec's rc code ("rc:0" ):
+                        - verify the bz and put a comment with the commands' execution output.
+
+Bzaf flow optional tweaks  :
+
+- bzaf executed spec comments may be private.
+- only the last valid bzaf spec comment will be executed in each bz.
+- to block bzaf from recursing a bz's comments , you can leave the string "``bzaf_skip``" in a private comment.
+
+
 Step 1 - Bugzilla Bugs Of Interest (“The what”)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -36,6 +55,8 @@ leverage single automation.
 3. ‘Truly generic’ - define a robust software like interface (set of rules/API)
 which will allow automation to scale with use cases without defining hard
 coded scenarios.
+
+
 
 Step 2 - CI auto-verification Of Bugs Of Interest (“The why”)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
