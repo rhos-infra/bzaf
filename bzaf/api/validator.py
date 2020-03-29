@@ -14,118 +14,133 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 """
-from __future__ import print_function
-from bzaf.api import v1
-from strictyaml import load, Map, Int, as_document
-import sys
 
-SCHEME = Map({'version': Int()})
+from bzaf.api import api_request
+from bzaf.api.schemas.bzaf import schema as bzaf_schema
+from bzaf.api.schemas.verification_step import schema as step_schema
+from bzaf.utils import exceptions
+from bzaf.utils import logger
+import jsonschema
+import yaml
 
-SUPPORTED_VERSIONS = {
-                        1: v1
-                     }
-
-
-def validate_job_env(spec, args_job_env, logger):
-    spec_job_env_list = spec['bzaf']['job_env'].split(',')
-    if all(spec_job_env_str in args_job_env for spec_job_env_str
-           in spec_job_env_list):
-        logger.info('All spec_job_env_list: {} are matched in '
-                    'args_job_env: {} , we can continue with '
-                    'auto verification..'
-                    .format(spec_job_env_list, args_job_env))
-        return True
-    else:
-        logger.info('Not all spec_job_env_list: {} are matched in '
-                    'args.job_env: {}, we can\'t continue with '
-                    'auto verification..'
-                    .format(spec_job_env_list, args_job_env))
-        return False
+bzaf_logger = logger.subscribe_to_logger()
 
 
-def _get_spec_version(version_string):
-    version = int(version_string.text)
-    return version
+def validate_initial_bzaf_yaml(bzaf_text):
+    """
+    Performs initial validation of supplied text, checks if text is a valid
+    bzaf spec
 
+    Parameters:
+        bzaf_text - Text parsed from comment
 
-def validate_initial_spec(spec):
-    # Check if version in present in spec
-    if 'version' in spec:
-        version_dict = as_document({'version': spec['version'].text})
+    Returns a JSON object if initial spec has passed schema validation
+    """
+    # Attempt to parse YAML from comment
     try:
-        load(version_dict.as_yaml(), SCHEME)
-        version = _get_spec_version(spec['version'])
-
-    except Exception as e:
-        print(e)
-        sys.exit(1)
-
-    # Check if version is supported
-    if version in SUPPORTED_VERSIONS:
-        print('version {} is supported :)'.format(version))
-    else:
-        print('version {} is not supported'.format(version))
-        sys.exit(1)
-
-    # Copy spec and remove version
-    modified_spec = as_document(spec.data)
-    del modified_spec['version']
-    # Continue validating spec based on version
-    SUPPORTED_VERSIONS[version].spec.validate(modified_spec)
+        bzaf_json = yaml.safe_load(bzaf_text)
+    except yaml.scanner.ScannerError as e:
+        raise exceptions.bzafInvalidSpecException(e)
+    except yaml.parser.ParserError as e:
+        raise exceptions.bzafInvalidSpecException(e)
+    # Attempt to validate YAML according to schema
+    try:
+        jsonschema.validate(instance=bzaf_json, schema=bzaf_schema)
+    except jsonschema.exceptions.ValidationError as e:
+        raise exceptions.bzafInvalidSpecException(e)
+    return bzaf_json['bzaf']
 
 
-def validate_spec_types(spec):
-    # Temporary check spec YAML according to types
+def validate_bzaf_version(bzaf_api_request):
+    """
+    Validates supplied bzaf spec version
 
-    example_spec = """
-    bzaf:
-     version: 1 <- type int
-     job_env: pidone,3cont_2comp  <- type comma delimited str
-     (i.e.:dfg,job_topology)
-     steps:
-      backend: 'shell' <- type str
-      cmd: 'echo some_command' <-type str
-      rc: 0 <- type int
-      name: 'first step'
-    # or using an ansible backend:
-    bzaf:
-     version: 1 <- type int
-     job_env: pidone,3cont_2comp  <- type comma delimited str
-     (i.e.:dfg,job_topology)
-     steps:
-      backend: 'ansible' <- type str
-      playbook: <-type yaml str
-         - hosts: localhost
-           tasks:
-             - name: bla
-               shell: |
-               echo "bzaf rules!"
-      name: 'first step'
-      rc: 0 <- type int"""
+    Parameters:
+        bzaf_api_request - bzaf API request object
 
-    tmp_backend = spec['bzaf']['steps']['backend']
-    if tmp_backend == 'shell':
-        backend_args = spec['bzaf']['steps']['cmd']
-    elif tmp_backend == 'ansible':
-        backend_args = spec['bzaf']['steps']['playbook']
-    tmp_rc = spec['bzaf']['steps']['rc']
-    tmp_version = spec['bzaf']['version']
-    job_env = spec['bzaf']['job_env']
-
-# Todo: add individual spec verifications here
-    if not (
-            isinstance(tmp_rc, int) and
-            isinstance(backend_args, (str, list)) and
-            isinstance(tmp_backend, str) and
-            isinstance(tmp_version, int) and
-            isinstance(job_env, str)
-
-    ):
-        raise ValueError('error please check yaml types, '
-                         'Example: {}'.format(example_spec))
+    Returns true if requested API version is valid
+    """
+    if not bzaf_api_request.api_version_is_valid():
+        raise exceptions.bzafInvalidMicroversion(bzaf_api_request.api_version)
     return True
 
 
-def execute_spec(spec):
+def validate_verifications_steps(bzaf_api_request):
+    """
+    Validates verification_steps from bzaf spec
 
-    return v1.executor.execute(spec)
+    Parameters:
+        bzaf_api_request - bzaf API request object
+    """
+    steps = bzaf_api_request.verification_steps
+    # Iterate over steps in bzaf spec
+    for step in steps:
+        step_backend = step['backend']
+        # Attempt to validate step according to schema
+        try:
+            jsonschema.validate(instance=step, schema=step_schema)
+        except jsonschema.exceptions.ValidationError as e:
+            raise exceptions.bzafInvalidSpecException(e)
+
+        if not bzaf_api_request.backend_is_valid(step_backend):
+            raise exceptions.bzafInvalidBackend(step_backend)
+        bzaf_api_request.validate_verification_step(step)
+
+
+def validate_bzaf_job_env(bzaf_api_request, requested_job_env):
+    """
+    Attempt to validate bzaf job_env fetched from request
+
+    Parameters:
+        bzaf_api_request - bzaf API request object
+        requested_job_env - job_env requested by user
+    """
+    job_env = bzaf_api_request.job_env
+    if job_env != requested_job_env:
+        raise exceptions.bzafInvalidJobEnv(requested_job_env, job_env)
+
+
+def validate_bzaf_yaml(comment_text, requested_job_env):
+    """
+    Attempt to validate bzaf spec fetched from comment
+
+    Parameters:
+        comment_text - Text containing potential spec to be validated
+        job_env - job_env requested by user
+
+    Returns:
+        request: bzaf API request
+    """
+    # Attempt to validate initial spec
+    try:
+        bzaf_spec = validate_initial_bzaf_yaml(comment_text)
+        # If spec is verifeid, create bzaf API request
+        request = bzaf_request = api_request.APIRequest(bzaf_spec)
+        # Attempt to validate if microversion is supported
+        try:
+            validate_bzaf_version(bzaf_request)
+        except exceptions.bzafInvalidMicroversion as e:
+            bzaf_logger.debug(e)
+            request = False
+        # Validate job_env
+        try:
+            validate_bzaf_job_env(bzaf_request, requested_job_env)
+        except exceptions.bzafInvalidJobEnv as e:
+            bzaf_logger.debug(e)
+            request = False
+        # Validate verifications steps
+        try:
+            validate_verifications_steps(bzaf_request)
+        except exceptions.bzafInvalidSpecException as e:
+            bzaf_logger.debug(e)
+            request = False
+        except exceptions.bzafInvalidBackend as e:
+            bzaf_logger.debug(e)
+            request = False
+        except exceptions.bzafInvalidBackendMicroversion as e:
+            bzaf_logger.debug(e)
+            request = False
+    except exceptions.bzafInvalidSpecException:
+        request = False
+        bzaf_logger.debug('No valid spec found in comment')
+    return request
