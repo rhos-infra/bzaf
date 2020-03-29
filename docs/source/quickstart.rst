@@ -2,50 +2,86 @@
 Quickstart
 ==========
 
-Regular usage::
+.. note:: In the future, we will ship a private Bugzilla container image that everyone could bring up and test the tool
 
-    git clone https://github.com/rhos-infra/bzaf.git
-    cd bzaf
+Installing the tool
+===================
+
+Install the tool in a virtual environment from remote master::
+
     virtualenv venv_bzaf
-    pip install .
+    source venv_bzaf/bin/activate
 
-Example run::
+    pip install git+https://github.com/rhos-infra/bzaf.git
 
-    Run on a single bz:
-    bzaf --debug --fatal --bugzilla \
+CLI Invocation Example
+======================
+
+Using interactive-login with bugs ID#
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+``bzaf`` allows multiple bugs (``--bug-id``) to be attempted at the same time::
+
+    bzaf --debug --bugzilla \
     https://partner-bugzilla.redhat.com \
-    --access-api-key **** --bzid 1618759 \
+    -- job-env 'all' \
+    --interactive-login --bug-id 1618759 \
+    --current-status ON_QA \
+    --verified-status VERIFIED \
+    --verified-resolution VERIFIED
+
+Using API key
+^^^^^^^^^^^^^
+
+If needed, ``bzaf`` can leverage Bugzilla API key without prompting for credentials::
+
+    export BZAF_API_KEY "YOUR_API_KEY"
+    bzaf --debug --bugzilla \
+    https://partner-bugzilla.redhat.com \
+    -- job-env 'all' \
+    --access-api-key $BZAF_API_KEY --bug-id 1618759 \
+    --current-status ON_QA \
+    --verified-status VERIFIED \
+    --verified-resolution VERIFIED
+
+More info on API keys can be found `here <https://bugzilla.readthedocs.io/en/latest/integrating/auth-delegation.html>`_.
+
+Using Bugzilla Query
+^^^^^^^^^^^^^^^^^^^^
+In some scenarios, the list of bugs need to be verified may change,
+we can use a Bugzilla query in order to supply the required bugs::
+
+    export BZAF_QUERY "YOUR_BZAF_QUERY"
+    bzaf --debug --bugzilla \
+    https://partner-bugzilla.redhat.com \
+    -- job-env 'all' \
+    --access-api-key $BZAF_API_KEY \
     --current-status ON_QA \
     --verified-status VERIFIED \
     --verified-resolution VERIFIED \
-    --job-env 'pidone,3cont_2comp'
+    --bugzilla-query $BZAF_QUERY
 
-    Run on Multiple bz's query:
-    bzaf --debug --fatal \
-    --bugzilla https://partner-bugzilla.redhat.com \
-    --access-api-key **** \
-    --current-status ON_QA --verified-status VERIFIED --verified-resolution VERIFIED \
-    --job-env 'pidone,3cont_2comp' \
-    --bz-query='https://partner-bugzilla.redhat.com/buglist.cgi?bug_severity=unspecified&bug_severity=urgent&bug_severity=high&bug_status=ON_QA&classification=Red%20Hat&columnlist=bug_\
-    status%2Cshort_desc%2Cbug_id&f1=cf_internal_whiteboard&known_name=all%20ON_QA%20pidone&list_id=10116655&o1=substring&priority=unspecified&priority=urgent&priority=high&query_\
-    based_on=all%20ON_QA%20pidone&query_format=advanced&v1=DFG%3APIDONE'
+Bugzilla query is the same query used in search which appears in the
+URL field in the browser.
 
-Via Infrared Plugin::
+Infrared Invocation Example
+===========================
 
-    Install Infrared:
-    https://infrared.readthedocs.io/en/latest/setup.html
+`Infrared <https://infrared.readthedocs.io/en/latest/>`_ is a
+plugin based tool which provides a CLI to Ansible based projects.
 
-    Add Bzaf as Infrared Plugin:
-    git clone https://github.com/rhos-infra/bzaf.git
-    ir plugin add https://github.com/rhos-infra/bzaf.git
+``bzaf`` repository contains an infrared plugin which install and
+executes the tool.
+
+Once infrared is installed::
+
+    infrared plugin add  https://github.com/rhos-infra/bzaf --src-path infrared
+    export BZAF_API_KEY "YOUR_API_KEY"
+    export BZAF_QUERY "YOUR_BZAF_QUERY"
     ir bzaf -vv \
-    --bzaf_cmd_attrd " --debug --fatal \
+    --bzaf_cmd_attrd "--debug \
+    --job-env 'all' \
     --bugzilla https://partner-bugzilla.redhat.com \
-    --access-api-key **** \
+    --access-api-key $BZAF_API_KEY \
     --current-status ON_QA --verified-status VERIFIED --verified-resolution VERIFIED \
-    --job-env 'pidone,3cont_2comp' \
-    --bz-query='https://partner-bugzilla.redhat.com/buglist.cgi?bug_severity=unspecified&bug_severity=urgent&bug_severity=high&bug_status=ON_QA&classification=Red%20Hat&columnlist=bug_\
-    status%2Cshort_desc%2Cbug_id&f1=cf_internal_whiteboard&known_name=all%20ON_QA%20pidone&list_id=10116655&o1=substring&priority=unspecified&priority=urgent&priority=high&query_\
-    based_on=all%20ON_QA%20pidone&query_format=advanced&v1=DFG%3APIDONE'"
-
-
+    --bugzilla-query $BZAF_QUERY"
