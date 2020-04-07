@@ -30,13 +30,12 @@
     version: 'FETCH_HEAD'
   when: test.refsec != ''
 
-- name: output gerrit patch log
+- name: output current gerrit patch
   shell: |
         git log -n 1
   register: git_log
   args:
     chdir: "{{ dir }}"
-  when: test.refsec != ''
 
 - debug: var=git_log.stdout_lines
   when: test.refsec != ''
