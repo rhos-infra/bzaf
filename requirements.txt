@@ -6,3 +6,4 @@ ansible-runner
 psutil
 jsonschema
 iteration_utilities
+prettytable
