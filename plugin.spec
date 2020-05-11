@@ -16,7 +16,7 @@ subparsers:
                       default: " -h"
                       help: |
                           command line attributes for bzaf:
-                          usage: bzaf [-h] [--debug] [--fatal]
+                          usage: bzaf [-h] [--debug]
                                       (--interactive-login | --access-api-key ACCESS_API_KEY)
                                       [--version] --bugzilla BUGZILLA
                                       (--bzid BZID | --bz-query BZ_QUERY) --current-status
@@ -28,14 +28,14 @@ subparsers:
                           optional arguments:
                             -h, --help            show this help message and exit
                             --debug               show debug
-                            --fatal               any error is fatal
                             --interactive-login   use interactive login if no cached credentials
                             --access-api-key ACCESS_API_KEY
                                                   use api token key instead of interactive login
                             --version             show program's version number and exit
                             --bugzilla BUGZILLA   Bugzilla API entry point to use
-                            --bzid BZID           Bugzilla bug # to be verified
-                            --bz-query BZ_QUERY   Bugzilla search URL, provides list of bugs tobe
+                            --bug-id BZID           Bugzilla bug # to be verified
+                            --bugzilla-query BZ_QUERY   Bugzilla search URL,
+                          provides list of bugs tobe
                                                   verified
                             --current-status CURRENT_STATUS
                                                   current status for bug to be verified
