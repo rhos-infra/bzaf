@@ -213,8 +213,7 @@ def fetch_bugs_from_bugzilla(bugzilla_instance,
                                 (bug_id,
                                  include_fields=fields))
     elif bugzilla_query:
-        query = bugzilla_instance.url_to_query(bugzilla_query,
-                                               include_fields=fields)
+        query = bugzilla_instance.url_to_query(bugzilla_query)
         fetched_bugs = bugzilla_instance.query(query)
     return fetched_bugs
 
