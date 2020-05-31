@@ -87,6 +87,6 @@
   delegate_to: "{{item}}"
   ignore_errors: true
   shell: |
-      for i in `podman ps -q` ;do podman cp /usr/bin/rpm_compare $i:/tmp ;done
-      for i in `podman ps -q` ;do podman exec $i sh -c "cp -v /tmp/rpm_compare/rpm_compare /usr/bin/ ";done
+      for i in `docker ps -q` ;do docker cp /usr/bin/rpm_compare $i:/tmp ;done
+      for i in `docker ps -q` ;do docker exec $i sh -c "cp -v /tmp/rpm_compare/rpm_compare /usr/bin/ ";done
   loop: "{{groups['overcloud_nodes']}}"
