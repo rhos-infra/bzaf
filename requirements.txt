@@ -7,3 +7,4 @@ psutil
 jsonschema
 iteration_utilities
 prettytable
+pathlib
