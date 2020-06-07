@@ -25,6 +25,7 @@ focusing on ease-of-use and simplicity.
    :caption: bzaf Spec
 
    bzaf_spec
+   cookbook
    bzaf_microversions
    backends
 
