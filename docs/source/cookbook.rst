@@ -4,9 +4,9 @@ Cookbook
 
 **Make sure a package version exists (>= than installed):**
 
-.. code-block::
+  .. code-block:: yaml
 
-  bzaf:
+     bzaf:
        version: 1
        job_env: 'pidone,3cont_2comp'
        verification_steps:
@@ -25,9 +25,9 @@ Cookbook
 **Install a newer package,**
 **check new command works:**
 
-.. code-block::
+  .. code-block:: yaml
 
-    bzaf:
+     bzaf:
        version: 1
        job_env: 'pidone,3cont_2comp'
        verification_steps:
