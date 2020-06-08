@@ -1,4 +1,6 @@
-**Bzaf cookbook**
+================
+Cookbook
+================
 
 **Make sure a package version exists (>= than installed):**
 

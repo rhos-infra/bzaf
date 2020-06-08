@@ -19,13 +19,13 @@ focusing on ease-of-use and simplicity.
 
    user_guide
    quickstart
+   cookbook
 
 .. toctree::
    :maxdepth: 2
    :caption: bzaf Spec
 
    bzaf_spec
-   cookbook
    bzaf_microversions
    backends
 
