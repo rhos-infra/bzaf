@@ -1,6 +1,8 @@
-** Bzaf cookbook**
+**Bzaf cookbook**
 
-**make sure a package version exists (>= than installed)**
+**Make sure a package version exists (>= than installed):**
+
+.. code-block::
 
   bzaf:
        version: 1
@@ -17,8 +19,9 @@
                        podman exec -it  `podman ps -f name=rabbitmq-bundle -q` sh -c "rpm_compare erlang-kernel-21.3.8.3-1.el8ost"
 
 
-**install a newer package,**
-**check new command works**
+
+**Install a newer package,**
+**check new command works:**
 
 .. code-block::
 
