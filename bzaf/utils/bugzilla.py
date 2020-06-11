@@ -243,7 +243,9 @@ def discover_valid_bugs(bugs, valid_status):
 
     # Raise an error if no valid bugs are found
     if not valid_bugs:
-        raise exceptions.bzafNoValidBugs()
+        # raise exceptions.bzafNoValidBugs()
+        bzaf_logger.debug('No valid bugs found to verify, exiting')
+        print('No valid bugs found to verify, exiting')
     return valid_bugs
 
 

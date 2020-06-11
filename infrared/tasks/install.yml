@@ -3,6 +3,27 @@
   shell: |
       curl https://bootstrap.pypa.io/get-pip.py | {{ python_ver }}
 
+- name: rhel7 env python3 prepare
+  become: yes
+  shell: |
+        install_pyhton3() {
+        sudo  yum groupinstall "Development tools" -y
+        sudo yum-config-manager --enable rhelosp-rhel-*-server-opt |grep baseurl
+        sudo yum install -y python3-devel
+        sudo yum install -y zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel \
+        readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel
+
+        cd ~
+        wget https://www.python.org/ftp/python/3.8.2/Python-3.8.2.tgz
+        tar zxvf Python-3.8.2.tgz
+        cd Python-3.8.2
+        ./configure --prefix=$HOME/python-3.8.2
+        make
+        make install
+        export PATH=$HOME/python-3.8.2/bin:$PATH
+        };
+        python3 -V || install_pyhton3
+
 - name: Install required packages
   become: yes
   vars:
@@ -16,7 +37,7 @@
     path: "{{ dir }}"
     state: absent
 
-- name: Clone Tobiko project
+- name: Clone Bzaf project
   git:
       repo: 'https://github.com/rhos-infra/bzaf.git'
       dest: "{{ dir }}"
@@ -42,11 +63,18 @@
 
 - name: Create Virtualenv
   vars:
-      packages: ['pip', 'setuptools', 'tox']
-  pip:
-      virtualenv: "{{ venv }}"
-      name: "{{ packages }}"
-      state: latest
+    packages: ['pip', 'setuptools', 'tox']
+    venv: venv_test3
+  block:
+      - pip:
+           virtualenv: "{{ venv }}"
+           name: "{{ packages }}"
+           state: latest
+  rescue:
+      - name:
+        shell: |
+         virtualenv -p python3 {{ venv }} || virtualenv -p \
+         /home/stack/python-3.8.2/bin/python3 {{ venv }}
 
 - name: Install Bzaf
   pip:
@@ -82,11 +110,19 @@
     mode: '0755'
   loop: "{{groups['openstack_nodes']}}"
 
-- name: install rpm_compare util on all overcloud containers
+- name: install rpm_compare util on all overcloud containers osp>13
   become: true
   delegate_to: "{{item}}"
   ignore_errors: true
   shell: |
-      for i in `docker ps -q` ;do docker cp /usr/bin/rpm_compare $i:/tmp ;done
-      for i in `docker ps -q` ;do docker exec $i sh -c "cp -v /tmp/rpm_compare/rpm_compare /usr/bin/ ";done
+      podman -v && for i in `docker ps -q` ;do docker cp /usr/bin/rpm_compare $i:/tmp ;done
+      podman -v && for i in `docker ps -q` ;do docker exec $i sh -c "cp -v /tmp/rpm_compare/rpm_compare /usr/bin/ ";done
+  loop: "{{groups['overcloud_nodes']}}"
+
+- name: install rpm_compare util on all overcloud containers osp<=13
+  become: true
+  delegate_to: "{{item}}"
+  ignore_errors: true
+  shell: |
+    podman -v || for i in `docker ps -q` ;do docker exec -u root $i curl https://raw.githubusercontent.com/rhos-infra/bzaf/master/infrared/tasks/templates/rpm_compare.j2 -o /usr/bin/rpm_compare;docker exec -u root $i chmod +x /usr/bin/rpm_compare;done
   loop: "{{groups['overcloud_nodes']}}"
