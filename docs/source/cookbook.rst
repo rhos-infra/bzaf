@@ -39,8 +39,35 @@ Cookbook
                tasks:
                  - name: check package rpm version on controllers
                    shell: |
-                       dnf install -y http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/pcs/0.10.3/2.el8/x86_64/pcs-0.10.3-2.el8.x86_64.rpm
+                       dnf install -y http://download.eng.bos.redhat.com/brewroot/...pcs-0.10.3-2.el8.x86_64.rpm
                  - name: check resource relations command
                    shell: |
                        pcs resource relations rabbitmq-bundle
 
+
+
+**Install a newer package,**
+**check pcs cluster stop is successful - no errors:**
+
+  .. code-block:: yaml
+
+     bzaf:
+       version: 1
+       job_env: 'pidone,3cont_2comp,16.1'
+       verification_steps:
+         - name: check package version
+           backend: ansible
+           playbook:
+             - hosts: controller-0
+               become: true
+               tasks:
+                 - name: update package version with patch
+                   shell: |
+                       yum install -y http://download.eng.bos.redhat.com/brewroot/...pcs-0.10.6-1.el8.x86_64.rpm
+                       rpm_compare pcs-0.10.6-1.el8.x86_64
+
+                 - name: check cluster stop command
+                   shell: |
+                       pcs resource create test ocf:heartbeat:Delay startdelay=1 stopdelay=35 op stop timeout=40
+                       pcs resource
+                       time pcs cluster stop --all
