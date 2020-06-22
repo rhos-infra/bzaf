@@ -71,3 +71,28 @@ Cookbook
                        pcs resource create test ocf:heartbeat:Delay startdelay=1 stopdelay=35 op stop timeout=40
                        pcs resource
                        time pcs cluster stop --all
+
+
+**Install newer packages**
+**code verify the patch**
+
+  .. code-block:: yaml
+
+     bzaf:
+       version: 1
+       job_env: 'pidone,3cont_2comp,13'
+       verification_steps:
+         - name: check package version
+           backend: ansible
+           playbook:
+             - hosts: controller-0
+               become: true
+               tasks:
+                 - name: update package version with patch
+                   shell: |
+                       yum install -y http://download.eng.bos.redhat
+                       .com/brewroot/vol/rhel-7/packages/fence-agents/[..]
+
+                 - name: code verify the patch
+                   shell: |
+                       grep -A 2 '"getopt" : ":"' /usr/sbin/fence_compute|grep region-name
