@@ -91,7 +91,8 @@ def prepare_bzaf_comment(successful, status, resolution):
     return generated_comment
 
 
-def upload_bugzilla_attachment(instance, bug, content, is_private, comment,
+def upload_bugzilla_attachment(instance, bug, content, comment,
+                               is_private=True,
                                content_type='text/plain'):
     """
     Upload attachment to bugzilla bug
@@ -251,7 +252,7 @@ def discover_valid_bugs(bugs, valid_status):
 
 def verify_valid_bugs(valid_bugs, verified_status, verified_resolution,
                       bugzilla_instance, job_env,
-                      private_comments_only=False):
+                      private_comments_only=True):
     """
     Attempts to verify valid bugs
 
