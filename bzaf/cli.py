@@ -41,7 +41,7 @@ def parse_args():
                                      'interactive login')
     parser.add_argument('--private-comments-only', action='store_true',
                         help='Executes spec from private comments only',
-                        required=False)
+                        required=False, default=True)
     parser.add_argument('--version', action='version',
                         version=bzaf.version.__version__)
     parser.add_argument('--bugzilla', required=True,
