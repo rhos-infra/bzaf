@@ -90,14 +90,20 @@ def validate_verifications_steps(bzaf_api_request):
 def validate_bzaf_job_env(bzaf_api_request, requested_job_env):
     """
     Attempt to validate bzaf job_env fetched from request
-
     Parameters:
-        bzaf_api_request - bzaf API request object
-        requested_job_env - job_env requested by user
+    bzaf_api_request - bzaf API request object (Bug side)
+    requested_job_env - job_env requested by user (CI side)
+    Only If ALL items in the bug_job_env_list are present in the
+    requested_job_env_list , then we have a match for verification.
+
+
     """
-    job_env = bzaf_api_request.job_env
-    if job_env != requested_job_env:
-        raise exceptions.bzafInvalidJobEnv(requested_job_env, job_env)
+    bug_job_env = bzaf_api_request.job_env
+    bug_job_env_list = bzaf_api_request.job_env.split(",")
+    requested_job_env_list = requested_job_env.split(",")
+    # check if all elements in bug_job_env_list are in requested_job_env_list:
+    if not all(elm in requested_job_env_list for elm in bug_job_env_list):
+        raise exceptions.bzafInvalidJobEnv(requested_job_env, bug_job_env)
 
 
 def validate_bzaf_yaml(comment_text, requested_job_env):
