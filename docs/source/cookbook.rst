@@ -96,3 +96,26 @@ Cookbook
                  - name: code verify the patch
                    shell: |
                        grep -A 2 '"getopt" : ":"' /usr/sbin/fence_compute|grep region-name
+
+**Check update**
+**check rpm and output logs**
+
+  .. code-block:: yaml
+
+     bzaf:
+       version: 1
+       job_env: 'pidone,3cont_3db_3msg_2net_2comp,16.1,updates'
+       verification_steps:
+         - name: checks
+           backend: ansible
+           playbook:
+             - hosts: undercloud
+               tasks:
+                 - name: check package
+                   shell: |
+                       rpm_compare openstack-tripleo-heat-templates-10
+
+                 - name: output osp update passed
+                   shell: |
+                     echo "if we're at this stage update has passed"
+                     grep -A 20 'PLAY RECAP' /home/stack/*.log
