@@ -1,0 +1,6 @@
+- name: output current dir-job name and date
+  shell: |
+        pwd;date
+  register: ci_job_log
+
+- debug: var=ci_job_log.stdout_lines
