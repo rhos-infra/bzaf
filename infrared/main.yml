@@ -9,9 +9,6 @@
 
   tasks:
 
-        - name: output job id and time of execution
-          include_tasks: tasks/ci_job_id.yml
-
         - name: Install Bzaf
           include_tasks: tasks/install.yml
 
