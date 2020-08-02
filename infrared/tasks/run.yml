@@ -2,4 +2,5 @@
   shell: |
       cd "{{ dir }}"
       source "{{ venv }}/bin/activate"
-      bzaf {{ test.bzaf_cmd_attrd }}
+      bzaf {{ test.bzaf_cmd_attrd }} --ci-job-id "{{test.ci_job_id}}"
+
