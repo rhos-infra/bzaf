@@ -67,6 +67,9 @@ def parse_args():
                              'between the automation job and bzaf '
                              'verification spec, Example: --job-env \'$dfg,'
                              '3cont_2comp\'')
+    parser.add_argument('--ci-job-id',
+                        help='current ci job id : job_name+date',
+                        default='default_ci_job_id')
     return parser.parse_args()
 
 
@@ -82,6 +85,7 @@ def main():
     interactive_login = args.interactive_login
     # TODO: Consider migrating this to a more generic workflow
     job_env = args.job_env
+    ci_job_id = args.ci_job_id
     bzaf_logger.debug('Set interactive login to: {}'.format(interactive_login))
     private_comment_only = args.private_comments_only
     bzaf_logger.debug('Set private comments only to: {}'
@@ -113,7 +117,7 @@ def main():
     updated_bugs, verified_bugs = \
         bugzilla.verify_valid_bugs(valid_bugs, verified_status,
                                    resolution, bugzilla_instance,
-                                   job_env, private_comment_only)
+                                   job_env, ci_job_id, private_comment_only)
     # Prepare execution summary
     summary.prepare_summary(bugs, valid_bugs, updated_bugs, verified_bugs)
 

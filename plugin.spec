@@ -54,3 +54,11 @@ subparsers:
                           checkout, example:
                           --refsec refs/changes/66/665966/7
                       default: ''
+
+                  ci_job_id:
+                      type: Value
+                      help: |
+                        CI job id-identifier
+                        example:
+                        --ci_job_id `printf "$(pwd)-$(date '+%Y-%m-%d')"`
+                      default: "default_ci_job_id"
