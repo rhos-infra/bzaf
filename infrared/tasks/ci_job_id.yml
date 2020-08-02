@@ -1,6 +1,6 @@
 - name: output current dir-job name and date
   shell: |
-        pwd;date
-  register: ci_job_log
+        printf "$(pwd)-$(date)"
+  register: ci_job_id
 
-- debug: var=ci_job_log.stdout_lines
+- debug: var=ci_job_id.stdout_lines
