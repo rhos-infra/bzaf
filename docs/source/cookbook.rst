@@ -119,3 +119,94 @@ Cookbook
                    shell: |
                      echo "if we're at this stage update has passed"
                      grep -A 20 'PLAY RECAP' /home/stack/*.log
+
+**check rpm and code verify**
+
+  .. code-block:: yaml
+
+     bzaf:
+       version: 1
+       job_env: 'pidone,3cont_2comp,16.1'
+       verification_steps:
+         - name: check package version
+           backend: ansible
+           playbook:
+             - hosts: controller-0
+               become: true 
+               tasks:
+                 - name: update package version with patch
+                   shell: |
+                       dnf install -y http://download.eng.bos.redhat.com/brewroot/__.rpm
+                       rpm_compare resource-agents-4.1.1-50.el8.x86_64
+     
+                 - name: code verify the fix
+                   shell: |
+                       rpm -qa|grep resource-agents|xargs rpm -ql|grep rabbit|grep -v gz|xargs grep -A5 wait_timeout'
+
+
+**check rpm and text not in logs**
+
+  .. code-block:: yaml
+
+     bzaf:
+       version: 1
+       job_env: 'pidone,3cont_2comp,-instance-ha-test-suite'
+       verification_steps:
+         - name: check package version
+           backend: ansible
+           playbook:
+             - hosts: controller
+               become: true
+               tasks:
+                 - name: update package version with patch
+                   shell: |
+                       dnf install -y http://download.eng.bos.redhat.com/brewroot/vol/rhel-8/packages/resource-agents/4.1.1/51.el8/x86_64/resource-agents-4.1.1-51.el8.x86_64.rpm
+                       rpm_compare resource-agents-4.1.1-51.el8.x86_64
+
+                 - name: check logs do not include text
+                   shell: |
+                       sleep 1m;grep -R  'Could not query value of evacuate: attribute does not exist' /var/log/cluster||true
+                       if grep -Rq 'Could not query value of evacuate: attribute does not exist' /var/log/cluster  ; then false;fi
+
+
+
+**check rpm ,update configs, check pacemaker status**
+
+  .. code-block:: yaml
+
+     bzaf:
+       version: 1
+       job_env: 'pidone,3cont_2comp,13'
+       verification_steps:
+         - name: check package fix
+           backend: ansible
+           playbook:
+             - hosts: compute-0
+               become: true
+               tasks:
+                 - name: update package version with patch
+                   shell: |
+                       yum install [..] 
+                       rpm_compare pacemaker-1.1.22-1.el7.x86_64
+
+                 - name: add test config
+                   shell: |
+                       echo 'PCMK_remote_port=1213' >>/etc/sysconfig/pacemaker
+                 - name: allow port and restart daemon
+                   shell: |
+                       iptables -I INPUT -p tcp --dport 1213 -j ACCEPT
+                       systemctl daemon-reload
+                       systemctl restart pacemaker_remote.service
+                       sleep 2m
+
+                 - name: check new port usage
+                   shell: |
+                       ss -lanpt | grep pacemaker|grep 1213
+
+             - hosts: controller-0
+               become: true
+               tasks:
+                 - name: check cluster resources
+                   shell: |
+                       pcs status|grep pacemaker:remote|grep novacomputeiha|grep Started
+
